@@ -1,3 +1,4 @@
+comeco:
 .data
 pixels:.space 16384 #espaço total dos pixels
 velocidade: .word 206
@@ -8,10 +9,13 @@ azul: .word 0x1656AD
 verde: .word 0x008000
 branco: .word 0xFFFFFF
 corDoFundo: .word 0x4B4C4E
-pontuacaoPlayer1: .word 98
+pontuacaoPlayer1: .word 0
 pixel1Desce1: .space 4
 pixel2Desce1: .space 4
 pixel3Desce1: .space 4
+pixel1Desce1Temporario: .space 4
+pixel2Desce1Temporario: .space 4
+pixel3Desce1Temporario: .space 4
 posicaoPixel1Desce1: .space 4
 posicaoPixel2Desce1: .space 4
 posicaoPixel3Desce1: .space 4
@@ -50,7 +54,12 @@ addi $sp, $sp, -4
 jal pintaBotao2Player1
 addi $sp, $sp, 4
 lw $ra, 0($sp)
+
+sw $ra, 0($sp)
+addi $sp, $sp, -4
 jal comecaDesceTeclas
+addi $sp, $sp, 4
+lw $ra, 0($sp)
 j exit
 
 pintaTela:
@@ -94,7 +103,7 @@ loopPintaEsquerda:
 sw $t0, 0($s0)
 addi $s0, $s0, 256
 addi $t1, $t1, 1
-bne $t1, 55, loopPintaEsquerda
+bne $t1, 54, loopPintaEsquerda
 jr $ra
 
 pintaDireita:
@@ -105,7 +114,7 @@ loopPintaDireita:
 sw $t0, 0($s0)
 addi $s0, $s0, 256
 addi $t1, $t1, 1
-bne $t1, 55, loopPintaDireita
+bne $t1, 54, loopPintaDireita
 jr $ra
 
 pintaBordaPlacarCima:
@@ -563,7 +572,7 @@ lw $ra, 0($sp)
 jr $ra
 
 aumentaPontuacaoPlayer1:
-la $s0, pontuacaoPlayer1
+la $s0, pontuacaoPlayer1 # talvez não precise dessa linha
 lw $t0, pontuacaoPlayer1
 addi $t0, $t0, 1
 sw $t0, 0($s0)
@@ -603,9 +612,9 @@ sw $t0, 8($s0)
 sw $t0, 12($s0)
 #sw $t0, 16($s0)
 sw $t0, 256($s0)
-sw $t3, 260($s0)
-sw $t3, 264($s0)
-sw $t3, 268($s0)
+sw $t1, 260($s0)
+sw $t1, 264($s0)
+sw $t1, 268($s0)
 sw $t0, 272($s0)
 #sw $t0, 512($s0)
 sw $t0, 516($s0)
@@ -616,7 +625,7 @@ sw $t0, 524($s0)
 jr $ra
 
 numeroAleatorio:
-addi $a1, $zero, 2
+addi $a1, $zero, 1
 addi $v0, $zero, 42
 syscall
 jr $ra
@@ -665,25 +674,21 @@ li $s0, 0x10010A30
 sw $s0, pixel2Desce1
 li $s0, 0x10010A34
 sw $s0, pixel3Desce1
-lw $t0, vermelho
+lw $t0, vermelho 
 sw $t0, corBotaoDesce1
 jr $ra
 #posicao2Desce1:
 #posicao3Desce1:
 #posicao4Desce1:
 
-desceTeclas: #essa parte pode ser usada nas outras teclas também
+desceTeclas: 
 sw $ra, 0($sp)
 addi $sp, $sp, -4
 jal desce1
 addi $sp, $sp, 4
 lw $ra, 0($sp)  
 
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal sleep
-addi $sp, $sp, 4
-lw $ra, 0($sp) 
+
 #jal desce1
 #jal desce2
 #sleep
@@ -726,29 +731,49 @@ addi $sp, $sp, -4
 jal verificaSePassouBotao1
 addi $sp, $sp, 4
 lw $ra, 0($sp)  
-
+#atrasa a decida da tecla
+sw $ra, 0($sp)
+addi $sp, $sp, -4
+jal sleep
+addi $sp, $sp, 4
+lw $ra, 0($sp) 
 j desceTeclas #j loop
 jr $ra
 
 desce1:
 lw $t0, branco
+lw $t1, corDoFundo
 lw $s0, pixel1Desce1
 lw $s1, pixel2Desce1
 lw $s2, pixel3Desce1
-sw $t0, 0($s0)
+sw $s0, pixel1Desce1Temporario
+sw $s1, pixel2Desce1Temporario
+sw $s2, pixel3Desce1Temporario
+beq $s0, 0x10010A2C, naoPintaFundoPrimeiraPosicao #verifica se vai pintar as primeiras posições da posição1, 2, 3 e 4
+#beq $s0, PRIMEIRA POSIÇÂO DA TECLA 2, naoPintaFundoPrimeiraPosicao
+#beq $s0, PRIMEIRA POSIÇÂO DA TECLA 3, naoPintaFundoPrimeiraPosicao
+#beq $s0, PRIMEIRA POSIÇÂO DA TECLA 4, naoPintaFundoPrimeiraPosicao
+sw $t1, -256($s0)
+sw $t1, -256($s1)
+sw $t1, -256($s2)
+naoPintaFundoPrimeiraPosicao:#faz o beq ignorar a pintura da cor do fundo e pintar só de branco aqui
+sw $t0, 0($s0) # coloca a cor branca na posição do pixel do buffer de pixels
 sw $t0, 0($s1)
 sw $t0, 0($s2)
 
-la $s0, pixel1Desce1
-la $s1, pixel2Desce1
-la $s2, pixel3Desce1
-sw $s0, posicaoPixel1Desce1
-sw $s1, posicaoPixel2Desce1
-sw $s2, posicaoPixel3Desce1
-addi $s0, $s0, 256  #    SALVAR A POSICAO DOS PIXELS PRA PEGAR ELES DEPOIS
+lw $s0, pixel1Desce1Temporario #ele não tá pulando pra próxima linha no pixel2Desce1? Sim, por isso tem que ter um pixelTemporário pra armazenar a posição
+addi $s0, $s0, 256
+sw $s0, pixel1Desce1 # coloca a próxima linha no ENDEREÇO pixel1Desce1, fora do buffer de pixels
 
+lw $s1, pixel2Desce1Temporario
 addi $s1, $s1, 256
+sw $s1, pixel2Desce1
+
+lw $s2, pixel3Desce1Temporario #la $s2, pixel3Desce1 antes era assim a linha
 addi $s2, $s2, 256
+sw $s2, pixel3Desce1
+  #    SALVAR A POSICAO DOS PIXELS PRA PEGAR ELES DEPOIS aparentemente foi
+
 jr $ra
 
 verificaSeTemQueRepintarBotao1:
@@ -776,21 +801,27 @@ fimVerificaSePodeApertarBotao1:
 jr $ra
 
 verificaSeApertouBotao1:
+#NO FINAL, VAI TER QUE TRANSFORMAR ESSA FUNÇÃO EM UMA SÓ COM A VERIFICAÇÃO DAS 4 TECLAS
 lw $t0, flagBotao1
 lw $t1, 0xffff0004
-beq $t1, 97, verificaSePerdeu
-beq $t1, 0, voltaResetaBotaoApertado1#quando digitar as outras teclas, mesmo que esteja na hora certa dos outros botoes, vai perder aqui
-verificaSePerdeu:
-beq $t0, 0, gameOver
-beq $t0, 1, resetaBotaoApertado1
+beq $t0, 1, verificaSePerdeu1# se a flag1 tiver ligada, só pode apertar 'a'
+beq $t1, 97, gameOver #se a flag NÃO tiver ligada, verifica se a letra apertada é válida
+d1:beq $t1, 100, voltaResetaBotaoApertado1
+j1:bne $t1, 106, voltaResetaBotaoApertado1
+l1:bne $t1, 108, voltaResetaBotaoApertado1
+zero1:bne $t1, 0, gameOver
+j voltaResetaBotaoApertado1#quando digitar as outras teclas, mesmo que esteja na hora certa dos outros botoes, vai perder aqui
+verificaSePerdeu1:                                  #por isso tem 1 flag pra cada botão, aí não perde
+beq $t1, 97, resetaBotaoApertado1
+#j gameOver
 voltaResetaBotaoApertado1:
 jr $ra
 
 
 resetaBotaoApertado1:
-ori $t0, $zero, 0
-sw $t0, 0xffff0004 
-
+sw $zero, 0xffff0004 
+lw $t0, flagBotao1
+sw $zero, flagBotao1#resetaFlagBotao1
 sw $ra, 0($sp)
 addi $sp, $sp, -4
 jal aleatorizaDesce1
@@ -827,13 +858,13 @@ verificaSePerdeuBotao1234:
 
 sleep:
 ori $v0, $zero, 32
-lw $a0, velocidade
+lw $a0, velocidade 
 syscall
 jr $ra
 
 aumentaVelocidade:
 lw $t0, velocidade
-addi $t0, $t0, 1
+addi $t0, $t0, -1
 sw $t0, velocidade
 jr $ra
 
@@ -842,7 +873,7 @@ addi $sp, $sp, 4
 lw $ra, 0($sp)
 #print voce perdeu
 j exit
-#j desejaReiniciar? se sim, chama todas as funções do começõ do código denovo
+#j desejaReiniciar? se sim, pula pro começo e chama todas as funções do começo do código denovo
 
 exit:
 ori $v0, $zero, 10
