@@ -1,7 +1,7 @@
-# Configura��es do bitmap display: 8, 8, 512, 512
+# Configuracoes do bitmap display: 8, 8, 512, 512
 .data
-pixels:.space 16384 #espa�o total dos pixels
-fraseControles: .asciiz " Controles do jogo:  A  D  J  L  (min�sculas)\n Bot�o 1: A\n Bot�o 2: D\n Bot�o 3: J\n Bot�o 4: L\n"
+pixels:.space 16384 #espaco total dos pixels
+fraseControles: .asciiz " Controles do jogo:  A  D  J  L  (minusculas)\n Botao 1: A\n Botao 2: D\n Botao 3: J\n Botao 4: L\n"
 fraseGameOver: .asciiz "-------------------- FIM DE JOGO --------------------\n"
 velocidade: .word 150 # tempo de atraso do jogo em milisegundos
 laranja: .word 0x00FFA500
@@ -133,7 +133,7 @@ addi $sp, $sp, 4
 lw $ra, 0($sp)
 j desceTeclas
 
-#COMECA AQUI AS ANIMA��ES
+#COMECA AQUI AS ANIMACOES
 desceTeclas: 
 jal apertouForaDaHora
 jal desce1
@@ -332,7 +332,7 @@ jal desce3
 jal desce4
 
 
-# VERIFICA��ES:
+# VERIFICACOES:
 
 #BOTAO 1:
 #verifica se tem que repintar botao1
@@ -596,9 +596,9 @@ lw $ra, 0($sp)
 jal sleep
 
 j loopDesceTeclas # j loop
-jal exit # n�o vai chegar nessa linha, mas t� aqui s� por precau��o
+jal exit # nao vai chegar nessa linha, mas ta aqui se por precaucao
 
-#          TERMINA DESCE TECLAS AQUI, EMBAIXO DISSO S�O O CORPO DAS FUN��ES
+#          TERMINA DESCE TECLAS AQUI, EMBAIXO DISSO SAO O CORPO DAS FUNCOES
 
 
 printaFraseControles:
@@ -710,8 +710,8 @@ mostraPlacarPlayer1:
 lw $t0, pontuacaoPlayer1
 ori $t3, $zero, 10 # $t3 = 10
 div $t0, $t3
-mfhi $t1 #coloca em $t1 a unidade (o resto da divis�o por 10)
-mflo $t2 # coloca em $t2 a dezena (o placar n�o vai passar de 99)
+mfhi $t1 #coloca em $t1 a unidade (o resto da divisao por 10)
+mflo $t2 # coloca em $t2 a dezena (o placar nao vai passar de 99)
 unidade:
 beq $t1, 0, zero
 beq $t1, 1, um
@@ -1416,21 +1416,21 @@ lw $s2, pixel3Desce1
 sw $s0, pixel1Temporario
 sw $s1, pixel2Temporario
 sw $s2, pixel3Temporario
-beq $s0, 0x10010A2C, naoPintaFundoPrimeiraPosicaoDesce1 #verifica se vai pintar as primeiras posi��es das descidas 1, 2, 3 e 4
+beq $s0, 0x10010A2C, naoPintaFundoPrimeiraPosicaoDesce1 #verifica se vai pintar as primeiras posi??es das descidas 1, 2, 3 e 4
 beq $s0, 0x10010A54, naoPintaFundoPrimeiraPosicaoDesce1
 beq $s0, 0x10010A7C, naoPintaFundoPrimeiraPosicaoDesce1
 beq $s0, 0x10010AA4, naoPintaFundoPrimeiraPosicaoDesce1
 sw $t1, -256($s0)
 sw $t1, -256($s1)
 sw $t1, -256($s2)
-naoPintaFundoPrimeiraPosicaoDesce1:#faz o beq ignorar a pintura da cor do fundo e pintar s� de branco aqui
-sw $t0, 0($s0) # coloca a cor branca na POSI��O DO PIXEL dentro do buffer de pixels
+naoPintaFundoPrimeiraPosicaoDesce1:#faz o beq ignorar a pintura da cor do fundo e pintar so de branco aqui
+sw $t0, 0($s0) # coloca a cor branca na POSICAO DO PIXEL dentro do buffer de pixels
 sw $t0, 0($s1)
 sw $t0, 0($s2)
 
 lw $s0, pixel1Temporario 
 addi $s0, $s0, 256
-sw $s0, pixel1Desce1 # coloca a pr�xima linha no ENDERE�O pixel1Desce1, fora do buffer de pixels
+sw $s0, pixel1Desce1 # coloca a proxima linha no ENDERECO pixel1Desce1, fora do buffer de pixels
 
 lw $s1, pixel2Temporario
 addi $s1, $s1, 256
@@ -1638,7 +1638,7 @@ jr $ra
 
 #verificaSePodeApertarBotoes:
 verificaSePodeApertarBotao1Desce1:
-lw $t0, 0x10013A2C # pode aumentar a �rea clic�vel do bot�o aqui, diminuindo a linha onde a flag de apertar a tecla � ativada
+lw $t0, 0x10013A2C # pode aumentar a area clicavel do botao aqui, diminuindo a linha onde a flag de apertar a tecla eh ativada
 lw $t2, 0x10013B2C
 lw $t3, 0x10013C2C
 lw $t1, limao
