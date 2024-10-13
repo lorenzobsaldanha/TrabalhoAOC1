@@ -1638,9 +1638,9 @@ jr $ra
 
 #verificaSePodeApertarBotoes:
 verificaSePodeApertarBotao1Desce1:
-lw $t0, 0x1001392C
-lw $t2, 0x10013A2C
-lw $t3, 0x10013B2C
+lw $t0, 0x10013A2C # pode aumentar a área clicável do botão aqui, diminuindo a linha onde a flag de apertar a tecla é ativada
+lw $t2, 0x10013B2C
+lw $t3, 0x10013C2C
 lw $t1, limao
 beq $t0, $t1, ligaFlag1Desce1
 beq $t2, $t1, ligaFlag1Desce1
@@ -1653,9 +1653,9 @@ fimVerificaSePodeApertarBotao1Desce1:
 jr $ra
 
 verificaSePodeApertarBotao2Desce1:
-lw $t0, 0x10013954
-lw $t2, 0x10013A54
-lw $t3, 0x10013B54
+lw $t0, 0x10013A54
+lw $t2, 0x10013B54
+lw $t3, 0x10013C54
 lw $t1, limao
 beq $t0, $t1, ligaFlag2Desce1
 beq $t2, $t1, ligaFlag2Desce1
@@ -1668,9 +1668,9 @@ fimVerificaSePodeApertarBotao2Desce1:
 jr $ra
 
 verificaSePodeApertarBotao3Desce1:
-lw $t0, 0x1001397C
-lw $t2, 0x10013A7C
-lw $t3, 0x10013B7C
+lw $t0, 0x10013A7C
+lw $t2, 0x10013B7C
+lw $t3, 0x10013C7C
 lw $t1, limao
 beq $t0, $t1, ligaFlag3Desce1
 beq $t2, $t1, ligaFlag3Desce1
@@ -1683,9 +1683,9 @@ fimVerificaSePodeApertarBotao3Desce1:
 jr $ra
 
 verificaSePodeApertarBotao4Desce1:
-lw $t0, 0x100139A4
-lw $t2, 0x10013AA4
-lw $t3, 0x10013BA4
+lw $t0, 0x10013AA4
+lw $t2, 0x10013BA4
+lw $t3, 0x10013CA4
 lw $t1, limao
 beq $t0, $t1, ligaFlag4Desce1
 beq $t2, $t1, ligaFlag4Desce1
@@ -1698,9 +1698,9 @@ fimVerificaSePodeApertarBotao4Desce1:
 jr $ra
 
 verificaSePodeApertarBotao1Desce2:
-lw $t0, 0x1001392C
-lw $t2, 0x10013A2C
-lw $t3, 0x10013B2C
+lw $t0, 0x10013A2C
+lw $t2, 0x10013B2C
+lw $t3, 0x10013C2C
 lw $t1, ciano
 beq $t0, $t1, ligaFlag1Desce2
 beq $t2, $t1, ligaFlag1Desce2
@@ -1713,9 +1713,9 @@ fimVerificaSePodeApertarBotao1Desce2:
 jr $ra
 
 verificaSePodeApertarBotao2Desce2:
-lw $t0, 0x10013954
-lw $t2, 0x10013A54
-lw $t3, 0x10013B54
+lw $t0, 0x10013A54
+lw $t2, 0x10013B54
+lw $t3, 0x10013C54
 lw $t1, ciano
 beq $t0, $t1, ligaFlag2Desce2
 beq $t2, $t1, ligaFlag2Desce2
@@ -1728,9 +1728,9 @@ fimVerificaSePodeApertarBotao2Desce2:
 jr $ra
 
 verificaSePodeApertarBotao3Desce2:
-lw $t0, 0x1001397C
-lw $t2, 0x10013A7C
-lw $t3, 0x10013B7C
+lw $t0, 0x10013A7C
+lw $t2, 0x10013B7C
+lw $t3, 0x10013C7C
 lw $t1, ciano
 beq $t0, $t1, ligaFlag3Desce2
 beq $t2, $t1, ligaFlag3Desce2
@@ -1743,9 +1743,9 @@ fimVerificaSePodeApertarBotao3Desce2:
 jr $ra
 
 verificaSePodeApertarBotao4Desce2:
-lw $t0, 0x100139A4
-lw $t2, 0x10013AA4
-lw $t3, 0x10013BA4
+lw $t0, 0x10013AA4
+lw $t2, 0x10013BA4
+lw $t3, 0x10013CA4
 lw $t1, ciano
 beq $t0, $t1, ligaFlag4Desce2
 beq $t2, $t1, ligaFlag4Desce2
@@ -1758,9 +1758,9 @@ fimVerificaSePodeApertarBotao4Desce2:
 jr $ra
 
 verificaSePodeApertarBotao1Desce3:
-lw $t0, 0x1001392C
-lw $t2, 0x10013A2C
-lw $t3, 0x10013B2C
+lw $t0, 0x10013A2C
+lw $t2, 0x10013B2C
+lw $t3, 0x10013C2C
 lw $t1, roxo
 beq $t0, $t1, ligaFlag1Desce3
 beq $t2, $t1, ligaFlag1Desce3
@@ -1773,9 +1773,9 @@ fimVerificaSePodeApertarBotao1Desce3:
 jr $ra
 
 verificaSePodeApertarBotao2Desce3:
-lw $t0, 0x10013954
-lw $t2, 0x10013A54
-lw $t3, 0x10013B54
+lw $t0, 0x10013A54
+lw $t2, 0x10013B54
+lw $t3, 0x10013C54
 lw $t1, roxo
 beq $t0, $t1, ligaFlag2Desce3
 beq $t2, $t1, ligaFlag2Desce3
@@ -1788,9 +1788,9 @@ fimVerificaSePodeApertarBotao2Desce3:
 jr $ra
 
 verificaSePodeApertarBotao3Desce3:
-lw $t0, 0x1001397C
-lw $t2, 0x10013A7C
-lw $t3, 0x10013B7C
+lw $t0, 0x10013A7C
+lw $t2, 0x10013B7C
+lw $t3, 0x10013C7C
 lw $t1, roxo
 beq $t0, $t1, ligaFlag3Desce3
 beq $t2, $t1, ligaFlag3Desce3
@@ -1803,9 +1803,9 @@ fimVerificaSePodeApertarBotao3Desce3:
 jr $ra
 
 verificaSePodeApertarBotao4Desce3:
-lw $t0, 0x100139A4
-lw $t2, 0x10013AA4
-lw $t3, 0x10013BA4
+lw $t0, 0x10013AA4
+lw $t2, 0x10013BA4
+lw $t3, 0x10013CA4
 lw $t1, roxo
 beq $t0, $t1, ligaFlag4Desce3
 beq $t2, $t1, ligaFlag4Desce3
@@ -1818,9 +1818,9 @@ fimVerificaSePodeApertarBotao4Desce3:
 jr $ra
 
 verificaSePodeApertarBotao1Desce4:
-lw $t0, 0x1001392C
-lw $t2, 0x10013A2C
-lw $t3, 0x10013B2C
+lw $t0, 0x10013A2C
+lw $t2, 0x10013B2C
+lw $t3, 0x10013C2C
 lw $t1, magenta
 beq $t0, $t1, ligaFlag1Desce4
 beq $t2, $t1, ligaFlag1Desce4
@@ -1833,9 +1833,9 @@ fimVerificaSePodeApertarBotao1Desce4:
 jr $ra
 
 verificaSePodeApertarBotao2Desce4:
-lw $t0, 0x10013954
-lw $t2, 0x10013A54
-lw $t3, 0x10013B54
+lw $t0, 0x10013A54
+lw $t2, 0x10013B54
+lw $t3, 0x10013C54
 lw $t1, magenta
 beq $t0, $t1, ligaFlag2Desce4
 beq $t2, $t1, ligaFlag2Desce4
@@ -1848,9 +1848,9 @@ fimVerificaSePodeApertarBotao2Desce4:
 jr $ra
 
 verificaSePodeApertarBotao3Desce4:
-lw $t0, 0x1001397C
-lw $t2, 0x10013A7C
-lw $t3, 0x10013B7C
+lw $t0, 0x10013A7C
+lw $t2, 0x10013B7C
+lw $t3, 0x10013C7C
 lw $t1, magenta
 beq $t0, $t1, ligaFlag3Desce4
 beq $t2, $t1, ligaFlag3Desce4
@@ -1863,9 +1863,9 @@ fimVerificaSePodeApertarBotao3Desce4:
 jr $ra
 
 verificaSePodeApertarBotao4Desce4:
-lw $t0, 0x100139A4
-lw $t2, 0x10013AA4
-lw $t3, 0x10013BA4
+lw $t0, 0x10013AA4
+lw $t2, 0x10013BA4
+lw $t3, 0x10013CA4
 lw $t1, magenta
 beq $t0, $t1, ligaFlag4Desce4
 beq $t2, $t1, ligaFlag4Desce4
