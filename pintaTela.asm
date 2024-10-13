@@ -1,7 +1,9 @@
-comeco:
+
 .data
 pixels:.space 16384 #espaço total dos pixels
-velocidade: .word 200
+fraseControles: .asciiz " Controles do jogo:  A  D  J  L  (minúsculas)\n Botão 1: A\n Botão 2: D\n Botão 3: J\n Botão 4: L\n"
+fraseGameOver: .asciiz "-------------------- FIM DE JOGO --------------------\n"
+velocidade: .word 150 # tempo de atraso do jogo em milisegundos
 laranja: .word 0x00FFA500
 vermelho: .word 0xFF0000
 amarelo: .word 0xF0C807
@@ -46,7 +48,7 @@ corBotaoDesce1: .space 4
 corBotaoDesce2: .space 4
 corBotaoDesce3: .space 4
 corBotaoDesce4: .space 4
-flagBotao1Desce1: .word 0 #pode ser que precise fazer uma flag pra cada desce(1234)
+flagBotao1Desce1: .word 0
 flagBotao2Desce1: .word 0
 flagBotao3Desce1: .word 0
 flagBotao4Desce1: .word 0
@@ -62,9 +64,10 @@ flagBotao1Desce4: .word 0
 flagBotao2Desce4: .word 0
 flagBotao3Desce4: .word 0
 flagBotao4Desce4: .word 0
-.word 0x47474747
-.text              
 
+.text              
+comeco:
+jal printaFraseControles
 jal pintaTela
 jal pintaCima
 jal pintaBaixo
@@ -104,12 +107,470 @@ jal pintaBotao4Player1
 addi $sp, $sp, 4
 lw $ra, 0($sp)
 
+comecaDesceTeclas:
 sw $ra, 0($sp)
 addi $sp, $sp, -4
-jal comecaDesceTeclas
+jal aleatorizaDesce1
 addi $sp, $sp, 4
 lw $ra, 0($sp)
-j exit
+
+sw $ra, 0($sp)
+addi $sp, $sp, -4
+jal aleatorizaDesce2
+addi $sp, $sp, 4
+lw $ra, 0($sp)
+
+sw $ra, 0($sp)
+addi $sp, $sp, -4
+jal aleatorizaDesce3
+addi $sp, $sp, 4
+lw $ra, 0($sp)
+
+sw $ra, 0($sp)
+addi $sp, $sp, -4
+jal aleatorizaDesce4
+addi $sp, $sp, 4
+lw $ra, 0($sp)
+j desceTeclas
+
+#COMECA AQUI AS ANIMAÇÕES
+desceTeclas: 
+
+jal desce1
+jal sleep
+
+jal desce1
+jal sleep
+
+jal desce1
+jal sleep
+
+jal desce1
+jal sleep
+
+jal desce1
+jal sleep
+
+jal desce1
+jal sleep
+
+jal desce1
+jal sleep
+
+jal desce1
+jal sleep
+
+jal desce1
+jal sleep
+
+jal desce1
+jal sleep
+
+jal desce1
+jal sleep
+
+jal desce1
+jal sleep
+
+jal desce2
+jal sleep
+
+#desce2
+
+jal desce1
+jal desce2
+jal sleep
+
+jal desce1
+jal desce2
+jal sleep
+
+jal desce1
+jal desce2
+jal sleep
+
+jal desce1
+jal desce2
+jal sleep
+
+jal desce1
+jal desce2
+jal sleep
+
+jal desce1
+jal desce2
+jal sleep
+
+jal desce1
+jal desce2
+jal sleep
+
+jal desce1
+jal desce2
+jal sleep
+
+jal desce1
+jal desce2
+jal sleep
+
+jal desce1
+jal desce2
+jal sleep
+
+jal desce1
+jal desce2
+jal sleep
+
+
+jal desce3
+jal sleep
+
+#desce3
+jal desce1
+jal desce2
+jal desce3
+jal sleep
+
+jal desce1
+jal desce2
+jal desce3
+jal sleep
+
+jal desce1
+jal desce2
+jal desce3
+jal sleep
+
+jal desce1
+jal desce2
+jal desce3
+jal sleep
+
+jal desce1
+jal desce2
+jal desce3
+jal sleep
+
+jal desce1
+jal desce2
+jal desce3
+jal sleep
+
+jal desce1
+jal desce2
+jal desce3
+jal sleep
+
+jal desce1
+jal desce2
+jal desce3
+jal sleep
+
+jal desce1
+jal desce2
+jal desce3
+jal sleep
+
+jal desce1
+jal desce2
+jal desce3
+jal sleep
+
+jal desce1
+jal desce2
+jal desce3
+jal sleep
+
+jal desce1
+jal desce2
+jal desce3
+jal sleep
+
+jal desce4
+jal sleep
+
+loopDesceTeclas: 
+
+jal desce1
+jal desce2
+jal desce3
+jal desce4
+
+
+# VERIFICAÇÕES:
+
+#BOTAO 1:
+#verifica se tem que repintar botao1
+sw $ra, 0($sp)
+addi $sp, $sp, -4
+jal verificaSeTemQueRepintarBotao1
+addi $sp, $sp, 4
+lw $ra, 0($sp)  
+#verifica se pode apertar botao1
+sw $ra, 0($sp)
+addi $sp, $sp, -4
+jal verificaSePodeApertarBotao1Desce1
+addi $sp, $sp, 4
+lw $ra, 0($sp)  
+
+sw $ra, 0($sp)
+addi $sp, $sp, -4
+jal verificaSePodeApertarBotao1Desce2
+addi $sp, $sp, 4
+lw $ra, 0($sp)  
+
+sw $ra, 0($sp)
+addi $sp, $sp, -4
+jal verificaSePodeApertarBotao1Desce3
+addi $sp, $sp, 4
+lw $ra, 0($sp) 
+
+sw $ra, 0($sp)
+addi $sp, $sp, -4
+jal verificaSePodeApertarBotao1Desce4
+addi $sp, $sp, 4
+lw $ra, 0($sp) 
+#verifica se a tecla passou do botao e perdeu o jogo
+sw $ra, 0($sp)
+addi $sp, $sp, -4
+jal verificaSePassouBotao1Desce1
+addi $sp, $sp, 4
+lw $ra, 0($sp)  
+
+sw $ra, 0($sp)
+addi $sp, $sp, -4
+jal verificaSePassouBotao1Desce2
+addi $sp, $sp, 4
+lw $ra, 0($sp)  
+
+sw $ra, 0($sp)
+addi $sp, $sp, -4
+jal verificaSePassouBotao1Desce3
+addi $sp, $sp, 4
+lw $ra, 0($sp)  
+
+sw $ra, 0($sp)
+addi $sp, $sp, -4
+jal verificaSePassouBotao1Desce4
+addi $sp, $sp, 4
+lw $ra, 0($sp)  
+
+#BOTAO 2:
+#verifica se tem que repintar botao2
+sw $ra, 0($sp)
+addi $sp, $sp, -4
+jal verificaSeTemQueRepintarBotao2
+addi $sp, $sp, 4
+lw $ra, 0($sp)  
+#verifica se pode apertar botao2
+sw $ra, 0($sp)
+addi $sp, $sp, -4
+jal verificaSePodeApertarBotao2Desce1
+addi $sp, $sp, 4
+lw $ra, 0($sp)  
+
+sw $ra, 0($sp)
+addi $sp, $sp, -4
+jal verificaSePodeApertarBotao2Desce2
+addi $sp, $sp, 4
+lw $ra, 0($sp) 
+
+sw $ra, 0($sp)
+addi $sp, $sp, -4
+jal verificaSePodeApertarBotao2Desce3
+addi $sp, $sp, 4
+lw $ra, 0($sp) 
+
+sw $ra, 0($sp)
+addi $sp, $sp, -4
+jal verificaSePodeApertarBotao2Desce4
+addi $sp, $sp, 4
+lw $ra, 0($sp) 
+#verifca se passou botao 2
+sw $ra, 0($sp)
+addi $sp, $sp, -4
+jal verificaSePassouBotao2Desce1
+addi $sp, $sp, 4
+lw $ra, 0($sp) 
+
+sw $ra, 0($sp)
+addi $sp, $sp, -4
+jal verificaSePassouBotao2Desce2
+addi $sp, $sp, 4
+lw $ra, 0($sp) 
+
+sw $ra, 0($sp)
+addi $sp, $sp, -4
+jal verificaSePassouBotao2Desce3
+addi $sp, $sp, 4
+lw $ra, 0($sp) 
+
+sw $ra, 0($sp)
+addi $sp, $sp, -4
+jal verificaSePassouBotao2Desce4
+addi $sp, $sp, 4
+lw $ra, 0($sp) 
+#BOTAO 3:
+#verifica se tem que repintar botao3
+sw $ra, 0($sp)
+addi $sp, $sp, -4
+jal verificaSeTemQueRepintarBotao3
+addi $sp, $sp, 4
+lw $ra, 0($sp)  
+#verifica se pode apertar botao3
+sw $ra, 0($sp)
+addi $sp, $sp, -4
+jal verificaSePodeApertarBotao3Desce1
+addi $sp, $sp, 4
+lw $ra, 0($sp)  
+
+sw $ra, 0($sp)
+addi $sp, $sp, -4
+jal verificaSePodeApertarBotao3Desce2
+addi $sp, $sp, 4
+lw $ra, 0($sp) 
+
+sw $ra, 0($sp)
+addi $sp, $sp, -4
+jal verificaSePodeApertarBotao3Desce3
+addi $sp, $sp, 4
+lw $ra, 0($sp) 
+
+sw $ra, 0($sp)
+addi $sp, $sp, -4
+jal verificaSePodeApertarBotao3Desce4
+addi $sp, $sp, 4
+lw $ra, 0($sp) 
+#verifca se passou botao 3
+sw $ra, 0($sp)
+addi $sp, $sp, -4
+jal verificaSePassouBotao3Desce1
+addi $sp, $sp, 4
+lw $ra, 0($sp) 
+
+sw $ra, 0($sp)
+addi $sp, $sp, -4
+jal verificaSePassouBotao3Desce2
+addi $sp, $sp, 4
+lw $ra, 0($sp) 
+
+sw $ra, 0($sp)
+addi $sp, $sp, -4
+jal verificaSePassouBotao3Desce3
+addi $sp, $sp, 4
+lw $ra, 0($sp) 
+
+sw $ra, 0($sp)
+addi $sp, $sp, -4
+jal verificaSePassouBotao3Desce4
+addi $sp, $sp, 4
+lw $ra, 0($sp) 
+
+#BOTAO 4:
+#verifica se tem que repintar botao4
+sw $ra, 0($sp)
+addi $sp, $sp, -4
+jal verificaSeTemQueRepintarBotao4
+addi $sp, $sp, 4
+lw $ra, 0($sp)  
+#verifica se pode apertar botao4
+sw $ra, 0($sp)
+addi $sp, $sp, -4
+jal verificaSePodeApertarBotao4Desce1
+addi $sp, $sp, 4
+lw $ra, 0($sp)  
+
+sw $ra, 0($sp)
+addi $sp, $sp, -4
+jal verificaSePodeApertarBotao4Desce2
+addi $sp, $sp, 4
+lw $ra, 0($sp) 
+
+sw $ra, 0($sp)
+addi $sp, $sp, -4
+jal verificaSePodeApertarBotao4Desce3
+addi $sp, $sp, 4
+lw $ra, 0($sp) 
+
+sw $ra, 0($sp)
+addi $sp, $sp, -4
+jal verificaSePodeApertarBotao4Desce4
+addi $sp, $sp, 4
+lw $ra, 0($sp) 
+#verifca se passou botao 4
+sw $ra, 0($sp)
+addi $sp, $sp, -4
+jal verificaSePassouBotao4Desce1
+addi $sp, $sp, 4
+lw $ra, 0($sp) 
+
+sw $ra, 0($sp)
+addi $sp, $sp, -4
+jal verificaSePassouBotao4Desce2
+addi $sp, $sp, 4
+lw $ra, 0($sp)
+
+sw $ra, 0($sp)
+addi $sp, $sp, -4
+jal verificaSePassouBotao4Desce3
+addi $sp, $sp, 4
+lw $ra, 0($sp)
+
+sw $ra, 0($sp)
+addi $sp, $sp, -4
+jal verificaSePassouBotao4Desce4
+addi $sp, $sp, 4
+lw $ra, 0($sp)
+
+#ULTIMAS FUNCOES:
+#verifica se apertou o botoes Desce 
+sw $ra, 0($sp)
+addi $sp, $sp, -4
+jal verificaSeApertouBotoesDesce1
+addi $sp, $sp, 4
+lw $ra, 0($sp)
+
+sw $ra, 0($sp)
+addi $sp, $sp, -4
+jal verificaSeApertouBotoesDesce2
+addi $sp, $sp, 4
+lw $ra, 0($sp)     
+
+sw $ra, 0($sp)
+addi $sp, $sp, -4
+jal verificaSeApertouBotoesDesce3
+addi $sp, $sp, 4
+lw $ra, 0($sp)  
+
+sw $ra, 0($sp)
+addi $sp, $sp, -4
+jal verificaSeApertouBotoesDesce4
+addi $sp, $sp, 4
+lw $ra, 0($sp)  
+
+#verifica se apertou errado
+sw $ra, 0($sp)
+addi $sp, $sp, -4
+jal apertouForaDaHora
+addi $sp, $sp, 4
+lw $ra, 0($sp) 
+
+
+#atrasa a decida da tecla
+
+jal sleep
+
+j loopDesceTeclas # j loop
+jal exit # não vai chegar nessa linha, mas tá aqui só por precaução
+
+#          TERMINA DESCE TECLAS AQUI, EMBAIXO DISSO SÃO O CORPO DAS FUNÇÕES
+
+
+printaFraseControles:
+ori $v0, $zero, 4
+la $a0, fraseControles
+syscall
+jr $ra
 
 pintaTela:
 lw $t0, corDoFundo
@@ -621,7 +1082,7 @@ lw $ra, 0($sp)
 jr $ra
 
 aumentaPontuacaoPlayer1:
-la $s0, pontuacaoPlayer1 # talvez não precise dessa linha
+la $s0, pontuacaoPlayer1 
 lw $t0, pontuacaoPlayer1
 addi $t0, $t0, 1
 sw $t0, 0($s0)
@@ -704,31 +1165,7 @@ syscall
 jr $ra
 #coloca um numero de 0 ate 3 no $a0
 
-comecaDesceTeclas:
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal aleatorizaDesce1
-addi $sp, $sp, 4
-lw $ra, 0($sp)
 
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal aleatorizaDesce2
-addi $sp, $sp, 4
-lw $ra, 0($sp)
-
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal aleatorizaDesce3
-addi $sp, $sp, 4
-lw $ra, 0($sp)
-
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal aleatorizaDesce4
-addi $sp, $sp, 4
-lw $ra, 0($sp)
-j desceTeclas
 
 aleatorizaDesce1:
 sw $ra, 0($sp)
@@ -934,479 +1371,6 @@ lw $t0, verde
 sw $t0, corBotaoDesce4
 jr $ra
 
-#COMECA AQUI
-desceTeclas: 
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal desce1
-addi $sp, $sp, 4
-lw $ra, 0($sp)  
-
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal desce1
-addi $sp, $sp, 4
-lw $ra, 0($sp)
-
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal desce1
-addi $sp, $sp, 4
-lw $ra, 0($sp)
-
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal desce1
-addi $sp, $sp, 4
-lw $ra, 0($sp)
-
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal sleep
-addi $sp, $sp, 4
-lw $ra, 0($sp)
-
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal desce1
-addi $sp, $sp, 4
-lw $ra, 0($sp)
-
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal desce1
-addi $sp, $sp, 4
-lw $ra, 0($sp)
-
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal desce1
-addi $sp, $sp, 4
-lw $ra, 0($sp)
-
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal desce1
-addi $sp, $sp, 4
-lw $ra, 0($sp)
-
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal desce2
-addi $sp, $sp, 4
-lw $ra, 0($sp)
-
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal desce2
-addi $sp, $sp, 4
-lw $ra, 0($sp)
-
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal desce2
-addi $sp, $sp, 4
-lw $ra, 0($sp)
-
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal desce2
-addi $sp, $sp, 4
-lw $ra, 0($sp)
-
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal sleep
-addi $sp, $sp, 4
-lw $ra, 0($sp)
-
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal desce1
-addi $sp, $sp, 4
-lw $ra, 0($sp)
-
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal desce1
-addi $sp, $sp, 4
-lw $ra, 0($sp)
-
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal desce1
-addi $sp, $sp, 4
-lw $ra, 0($sp)
-
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal desce1
-addi $sp, $sp, 4
-lw $ra, 0($sp)
-
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal desce2
-addi $sp, $sp, 4
-lw $ra, 0($sp)
-
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal desce2
-addi $sp, $sp, 4
-lw $ra, 0($sp)
-
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal desce2
-addi $sp, $sp, 4
-lw $ra, 0($sp)
-
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal desce2
-addi $sp, $sp, 4
-lw $ra, 0($sp)
-
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal desce3
-addi $sp, $sp, 4
-lw $ra, 0($sp)
-
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal desce3
-addi $sp, $sp, 4
-lw $ra, 0($sp)
-
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal desce3
-addi $sp, $sp, 4
-lw $ra, 0($sp)
-
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal desce3
-addi $sp, $sp, 4
-lw $ra, 0($sp)
-
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal sleep
-addi $sp, $sp, 4
-lw $ra, 0($sp)
-
-loopDesceTeclas: 
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal desce1
-addi $sp, $sp, 4
-lw $ra, 0($sp)
-
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal desce2
-addi $sp, $sp, 4
-lw $ra, 0($sp)
-
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal desce3
-addi $sp, $sp, 4
-lw $ra, 0($sp)
-
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal desce4
-addi $sp, $sp, 4
-lw $ra, 0($sp)
-
-
-# VERIFICAÇÕES:
-#verifica se apertou o botoes Desce 
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal verificaSeApertouBotoesDesce1
-addi $sp, $sp, 4
-lw $ra, 0($sp)
-
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal verificaSeApertouBotoesDesce2
-addi $sp, $sp, 4
-lw $ra, 0($sp)     
-
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal verificaSeApertouBotoesDesce3
-addi $sp, $sp, 4
-lw $ra, 0($sp)  
-
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal verificaSeApertouBotoesDesce4
-addi $sp, $sp, 4
-lw $ra, 0($sp)  
-#BOTAO 1:
-#verifica se tem que repintar botao1
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal verificaSeTemQueRepintarBotao1
-addi $sp, $sp, 4
-lw $ra, 0($sp)  
-#verifica se pode apertar botao1
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal verificaSePodeApertarBotao1Desce1
-addi $sp, $sp, 4
-lw $ra, 0($sp)  
-
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal verificaSePodeApertarBotao1Desce2
-addi $sp, $sp, 4
-lw $ra, 0($sp)  
-
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal verificaSePodeApertarBotao1Desce3
-addi $sp, $sp, 4
-lw $ra, 0($sp) 
-
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal verificaSePodeApertarBotao1Desce4
-addi $sp, $sp, 4
-lw $ra, 0($sp) 
-#verifica se a tecla passou do botao e perdeu o jogo
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal verificaSePassouBotao1Desce1
-addi $sp, $sp, 4
-lw $ra, 0($sp)  
-
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal verificaSePassouBotao1Desce2
-addi $sp, $sp, 4
-lw $ra, 0($sp)  
-
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal verificaSePassouBotao1Desce3
-addi $sp, $sp, 4
-lw $ra, 0($sp)  
-
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal verificaSePassouBotao1Desce4
-addi $sp, $sp, 4
-lw $ra, 0($sp)  
-
-#BOTAO 2:
-#verifica se tem que repintar botao2
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal verificaSeTemQueRepintarBotao2
-addi $sp, $sp, 4
-lw $ra, 0($sp)  
-#verifica se pode apertar botao2
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal verificaSePodeApertarBotao2Desce1
-addi $sp, $sp, 4
-lw $ra, 0($sp)  
-
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal verificaSePodeApertarBotao2Desce2
-addi $sp, $sp, 4
-lw $ra, 0($sp) 
-
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal verificaSePodeApertarBotao2Desce3
-addi $sp, $sp, 4
-lw $ra, 0($sp) 
-
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal verificaSePodeApertarBotao2Desce4
-addi $sp, $sp, 4
-lw $ra, 0($sp) 
-#verifca se passou botao 2
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal verificaSePassouBotao2Desce1
-addi $sp, $sp, 4
-lw $ra, 0($sp) 
-
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal verificaSePassouBotao2Desce2
-addi $sp, $sp, 4
-lw $ra, 0($sp) 
-
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal verificaSePassouBotao2Desce3
-addi $sp, $sp, 4
-lw $ra, 0($sp) 
-
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal verificaSePassouBotao2Desce4
-addi $sp, $sp, 4
-lw $ra, 0($sp) 
-#BOTAO 3:
-#verifica se tem que repintar botao3
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal verificaSeTemQueRepintarBotao3
-addi $sp, $sp, 4
-lw $ra, 0($sp)  
-#verifica se pode apertar botao3
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal verificaSePodeApertarBotao3Desce1
-addi $sp, $sp, 4
-lw $ra, 0($sp)  
-
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal verificaSePodeApertarBotao3Desce2
-addi $sp, $sp, 4
-lw $ra, 0($sp) 
-
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal verificaSePodeApertarBotao3Desce3
-addi $sp, $sp, 4
-lw $ra, 0($sp) 
-
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal verificaSePodeApertarBotao3Desce4
-addi $sp, $sp, 4
-lw $ra, 0($sp) 
-#verifca se passou botao 3
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal verificaSePassouBotao3Desce1
-addi $sp, $sp, 4
-lw $ra, 0($sp) 
-
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal verificaSePassouBotao3Desce2
-addi $sp, $sp, 4
-lw $ra, 0($sp) 
-
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal verificaSePassouBotao3Desce3
-addi $sp, $sp, 4
-lw $ra, 0($sp) 
-
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal verificaSePassouBotao3Desce4
-addi $sp, $sp, 4
-lw $ra, 0($sp) 
-
-#BOTAO 4:
-#verifica se tem que repintar botao4
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal verificaSeTemQueRepintarBotao4
-addi $sp, $sp, 4
-lw $ra, 0($sp)  
-#verifica se pode apertar botao4
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal verificaSePodeApertarBotao4Desce1
-addi $sp, $sp, 4
-lw $ra, 0($sp)  
-
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal verificaSePodeApertarBotao4Desce2
-addi $sp, $sp, 4
-lw $ra, 0($sp) 
-
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal verificaSePodeApertarBotao4Desce3
-addi $sp, $sp, 4
-lw $ra, 0($sp) 
-
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal verificaSePodeApertarBotao4Desce4
-addi $sp, $sp, 4
-lw $ra, 0($sp) 
-#verifca se passou botao 4
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal verificaSePassouBotao4Desce1
-addi $sp, $sp, 4
-lw $ra, 0($sp) 
-
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal verificaSePassouBotao4Desce2
-addi $sp, $sp, 4
-lw $ra, 0($sp)
-
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal verificaSePassouBotao4Desce3
-addi $sp, $sp, 4
-lw $ra, 0($sp)
-
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal verificaSePassouBotao4Desce4
-addi $sp, $sp, 4
-lw $ra, 0($sp)
-
-#ULTIMAS FUNCOES:
-#verifica se apertou errado
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal apertouForaDaHoraDesce1
-addi $sp, $sp, 4
-lw $ra, 0($sp) 
-
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal apertouForaDaHoraDesce2
-addi $sp, $sp, 4
-lw $ra, 0($sp) 
-
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal apertouForaDaHoraDesce3
-addi $sp, $sp, 4
-lw $ra, 0($sp) 
-
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal apertouForaDaHoraDesce4
-addi $sp, $sp, 4
-lw $ra, 0($sp) 
-
-#atrasa a decida da tecla
-sw $ra, 0($sp)
-addi $sp, $sp, -4
-jal sleep
-addi $sp, $sp, 4
-lw $ra, 0($sp) 
-j loopDesceTeclas # j loop
-jr $ra
-#          TERMINA DESCE TECLAS AQUI, EMBAIXO DISSO SÃO O CORPO DAS FUNÇÕES
 
 desce1:
 lw $t0, limao
@@ -1417,7 +1381,7 @@ lw $s2, pixel3Desce1
 sw $s0, pixel1Temporario
 sw $s1, pixel2Temporario
 sw $s2, pixel3Temporario
-beq $s0, 0x10010A2C, naoPintaFundoPrimeiraPosicaoDesce1 #verifica se vai pintar as primeiras posições da posição1, 2, 3 e 4
+beq $s0, 0x10010A2C, naoPintaFundoPrimeiraPosicaoDesce1 #verifica se vai pintar as primeiras posições das descidas 1, 2, 3 e 4
 beq $s0, 0x10010A54, naoPintaFundoPrimeiraPosicaoDesce1
 beq $s0, 0x10010A7C, naoPintaFundoPrimeiraPosicaoDesce1
 beq $s0, 0x10010AA4, naoPintaFundoPrimeiraPosicaoDesce1
@@ -1425,11 +1389,11 @@ sw $t1, -256($s0)
 sw $t1, -256($s1)
 sw $t1, -256($s2)
 naoPintaFundoPrimeiraPosicaoDesce1:#faz o beq ignorar a pintura da cor do fundo e pintar só de branco aqui
-sw $t0, 0($s0) # coloca a cor branca na posição do pixel do buffer de pixels
+sw $t0, 0($s0) # coloca a cor branca na POSIÇÃO DO PIXEL dentro do buffer de pixels
 sw $t0, 0($s1)
 sw $t0, 0($s2)
 
-lw $s0, pixel1Temporario #ele não tá pulando pra próxima linha no pixel2Desce1? Sim, por isso tem que ter um pixelTemporário pra armazenar a posição
+lw $s0, pixel1Temporario 
 addi $s0, $s0, 256
 sw $s0, pixel1Desce1 # coloca a próxima linha no ENDEREÇO pixel1Desce1, fora do buffer de pixels
 
@@ -1437,10 +1401,10 @@ lw $s1, pixel2Temporario
 addi $s1, $s1, 256
 sw $s1, pixel2Desce1
 
-lw $s2, pixel3Temporario #la $s2, pixel3Desce1 antes era assim a linha
+lw $s2, pixel3Temporario 
 addi $s2, $s2, 256
 sw $s2, pixel3Desce1
-  #    SALVAR A POSICAO DOS PIXELS PRA PEGAR ELES DEPOIS aparentemente foi
+
 jr $ra
 
 desce2:
@@ -1640,8 +1604,12 @@ jr $ra
 #verificaSePodeApertarBotoes:
 verificaSePodeApertarBotao1Desce1:
 lw $t0, 0x1001392C
+lw $t2, 0x10013A2C
+lw $t3, 0x10013B2C
 lw $t1, limao
 beq $t0, $t1, ligaFlag1Desce1
+beq $t2, $t1, ligaFlag1Desce1
+beq $t3, $t1, ligaFlag1Desce1
 j fimVerificaSePodeApertarBotao1Desce1
 ligaFlag1Desce1:
 ori $t1, $zero, 1
@@ -1651,8 +1619,12 @@ jr $ra
 
 verificaSePodeApertarBotao2Desce1:
 lw $t0, 0x10013954
+lw $t2, 0x10013A54
+lw $t3, 0x10013B54
 lw $t1, limao
 beq $t0, $t1, ligaFlag2Desce1
+beq $t2, $t1, ligaFlag2Desce1
+beq $t3, $t1, ligaFlag2Desce1
 j fimVerificaSePodeApertarBotao2Desce1
 ligaFlag2Desce1:
 ori $t1, $zero, 1
@@ -1662,8 +1634,12 @@ jr $ra
 
 verificaSePodeApertarBotao3Desce1:
 lw $t0, 0x1001397C
+lw $t2, 0x10013A7C
+lw $t3, 0x10013B7C
 lw $t1, limao
 beq $t0, $t1, ligaFlag3Desce1
+beq $t2, $t1, ligaFlag3Desce1
+beq $t3, $t1, ligaFlag3Desce1
 j fimVerificaSePodeApertarBotao3Desce1
 ligaFlag3Desce1:
 ori $t1, $zero, 1
@@ -1673,8 +1649,12 @@ jr $ra
 
 verificaSePodeApertarBotao4Desce1:
 lw $t0, 0x100139A4
+lw $t2, 0x10013AA4
+lw $t3, 0x10013BA4
 lw $t1, limao
 beq $t0, $t1, ligaFlag4Desce1
+beq $t2, $t1, ligaFlag4Desce1
+beq $t3, $t1, ligaFlag4Desce1
 j fimVerificaSePodeApertarBotao4Desce1
 ligaFlag4Desce1:
 ori $t1, $zero, 1
@@ -1684,8 +1664,12 @@ jr $ra
 
 verificaSePodeApertarBotao1Desce2:
 lw $t0, 0x1001392C
+lw $t2, 0x10013A2C
+lw $t3, 0x10013B2C
 lw $t1, ciano
 beq $t0, $t1, ligaFlag1Desce2
+beq $t2, $t1, ligaFlag1Desce2
+beq $t3, $t1, ligaFlag1Desce2
 j fimVerificaSePodeApertarBotao2Desce2
 ligaFlag1Desce2:
 ori $t1, $zero, 1
@@ -1695,8 +1679,12 @@ jr $ra
 
 verificaSePodeApertarBotao2Desce2:
 lw $t0, 0x10013954
+lw $t2, 0x10013A54
+lw $t3, 0x10013B54
 lw $t1, ciano
 beq $t0, $t1, ligaFlag2Desce2
+beq $t2, $t1, ligaFlag2Desce2
+beq $t3, $t1, ligaFlag2Desce2
 j fimVerificaSePodeApertarBotao2Desce2
 ligaFlag2Desce2:
 ori $t1, $zero, 1
@@ -1706,8 +1694,12 @@ jr $ra
 
 verificaSePodeApertarBotao3Desce2:
 lw $t0, 0x1001397C
+lw $t2, 0x10013A7C
+lw $t3, 0x10013B7C
 lw $t1, ciano
 beq $t0, $t1, ligaFlag3Desce2
+beq $t2, $t1, ligaFlag3Desce2
+beq $t3, $t1, ligaFlag3Desce2
 j fimVerificaSePodeApertarBotao3Desce2
 ligaFlag3Desce2:
 ori $t1, $zero, 1
@@ -1717,8 +1709,12 @@ jr $ra
 
 verificaSePodeApertarBotao4Desce2:
 lw $t0, 0x100139A4
+lw $t2, 0x10013AA4
+lw $t3, 0x10013BA4
 lw $t1, ciano
 beq $t0, $t1, ligaFlag4Desce2
+beq $t2, $t1, ligaFlag4Desce2
+beq $t3, $t1, ligaFlag4Desce2
 j fimVerificaSePodeApertarBotao4Desce2
 ligaFlag4Desce2:
 ori $t1, $zero, 1
@@ -1728,8 +1724,12 @@ jr $ra
 
 verificaSePodeApertarBotao1Desce3:
 lw $t0, 0x1001392C
+lw $t2, 0x10013A2C
+lw $t3, 0x10013B2C
 lw $t1, roxo
 beq $t0, $t1, ligaFlag1Desce3
+beq $t2, $t1, ligaFlag1Desce3
+beq $t3, $t1, ligaFlag1Desce3
 j fimVerificaSePodeApertarBotao1Desce3
 ligaFlag1Desce3:
 ori $t1, $zero, 1
@@ -1739,8 +1739,12 @@ jr $ra
 
 verificaSePodeApertarBotao2Desce3:
 lw $t0, 0x10013954
+lw $t2, 0x10013A54
+lw $t3, 0x10013B54
 lw $t1, roxo
 beq $t0, $t1, ligaFlag2Desce3
+beq $t2, $t1, ligaFlag2Desce3
+beq $t3, $t1, ligaFlag2Desce3
 j fimVerificaSePodeApertarBotao2Desce3
 ligaFlag2Desce3:
 ori $t1, $zero, 1
@@ -1750,8 +1754,12 @@ jr $ra
 
 verificaSePodeApertarBotao3Desce3:
 lw $t0, 0x1001397C
+lw $t2, 0x10013A7C
+lw $t3, 0x10013B7C
 lw $t1, roxo
 beq $t0, $t1, ligaFlag3Desce3
+beq $t2, $t1, ligaFlag3Desce3
+beq $t3, $t1, ligaFlag3Desce3
 j fimVerificaSePodeApertarBotao3Desce3
 ligaFlag3Desce3:
 ori $t1, $zero, 1
@@ -1761,8 +1769,12 @@ jr $ra
 
 verificaSePodeApertarBotao4Desce3:
 lw $t0, 0x100139A4
+lw $t2, 0x10013AA4
+lw $t3, 0x10013BA4
 lw $t1, roxo
 beq $t0, $t1, ligaFlag4Desce3
+beq $t2, $t1, ligaFlag4Desce3
+beq $t3, $t1, ligaFlag4Desce3
 j fimVerificaSePodeApertarBotao4Desce3
 ligaFlag4Desce3:
 ori $t1, $zero, 1
@@ -1772,8 +1784,12 @@ jr $ra
 
 verificaSePodeApertarBotao1Desce4:
 lw $t0, 0x1001392C
+lw $t2, 0x10013A2C
+lw $t3, 0x10013B2C
 lw $t1, magenta
 beq $t0, $t1, ligaFlag1Desce4
+beq $t2, $t1, ligaFlag1Desce4
+beq $t3, $t1, ligaFlag1Desce4
 j fimVerificaSePodeApertarBotao4Desce4
 ligaFlag1Desce4:
 ori $t1, $zero, 1
@@ -1783,8 +1799,12 @@ jr $ra
 
 verificaSePodeApertarBotao2Desce4:
 lw $t0, 0x10013954
+lw $t2, 0x10013A54
+lw $t3, 0x10013B54
 lw $t1, magenta
 beq $t0, $t1, ligaFlag2Desce4
+beq $t2, $t1, ligaFlag2Desce4
+beq $t3, $t1, ligaFlag2Desce4
 j fimVerificaSePodeApertarBotao2Desce4
 ligaFlag2Desce4:
 ori $t1, $zero, 1
@@ -1794,8 +1814,12 @@ jr $ra
 
 verificaSePodeApertarBotao3Desce4:
 lw $t0, 0x1001397C
+lw $t2, 0x10013A7C
+lw $t3, 0x10013B7C
 lw $t1, magenta
 beq $t0, $t1, ligaFlag3Desce4
+beq $t2, $t1, ligaFlag3Desce4
+beq $t3, $t1, ligaFlag3Desce4
 j fimVerificaSePodeApertarBotao3Desce4
 ligaFlag3Desce4:
 ori $t1, $zero, 1
@@ -1805,8 +1829,12 @@ jr $ra
 
 verificaSePodeApertarBotao4Desce4:
 lw $t0, 0x100139A4
+lw $t2, 0x10013AA4
+lw $t3, 0x10013BA4
 lw $t1, magenta
 beq $t0, $t1, ligaFlag4Desce4
+beq $t2, $t1, ligaFlag4Desce4
+beq $t3, $t1, ligaFlag4Desce4
 j fimVerificaSePodeApertarBotao4Desce4
 ligaFlag4Desce4:
 ori $t1, $zero, 1
@@ -1814,9 +1842,10 @@ sw $t1, flagBotao4Desce4
 fimVerificaSePodeApertarBotao4Desce4:
 jr $ra
 
-#NOVA FUNÇÃO	     PROBLEMA: as flags dos botoes atuais resetam só o desce 1, teria que fazer flags pro desce2, 3 e 4
+#verifica se apertou os botoes
+#desce1
 verificaSeApertouBotoesDesce1:
-lw $t0, flagBotao1Desce1#flagBotao1Desce1
+lw $t0, flagBotao1Desce1
 lw $t1, flagBotao2Desce1
 lw $t2, flagBotao3Desce1
 lw $t3, flagBotao4Desce1
@@ -1882,7 +1911,6 @@ resetaDesce1:
 sw $ra, 0($sp)
 addi $sp, $sp, -4
 jal aleatorizaDesce1
-#jal chamanumeroaleatorio e recoloca desce1, e repinta botao1
 addi $sp, $sp, 4
 lw $ra, 0($sp) 
 
@@ -1898,7 +1926,8 @@ jal aumentaVelocidade
 addi $sp, $sp, 4
 lw $ra, 0($sp) 
 j fimVerificaSeApertouBotoesDesce1
-#2
+
+#desce2
 verificaSeApertouBotoesDesce2:
 lw $t0, flagBotao1Desce2
 lw $t1, flagBotao2Desce2
@@ -1982,7 +2011,7 @@ addi $sp, $sp, 4
 lw $ra, 0($sp) 
 j fimVerificaSeApertouBotoesDesce2
 
-#3
+#desce3
 verificaSeApertouBotoesDesce3:
 lw $t0, flagBotao1Desce3
 lw $t1, flagBotao2Desce3
@@ -2065,7 +2094,8 @@ jal aumentaVelocidade
 addi $sp, $sp, 4
 lw $ra, 0($sp) 
 j fimVerificaSeApertouBotoesDesce3
-#4
+
+#desce4
 verificaSeApertouBotoesDesce4:
 lw $t0, flagBotao1Desce4
 lw $t1, flagBotao2Desce4
@@ -2150,63 +2180,51 @@ lw $ra, 0($sp)
 j fimVerificaSeApertouBotoesDesce4
 
 #apertou fora da hora
-apertouForaDaHoraDesce1:
+apertouForaDaHora:
+#desce1
 lw $t0, flagBotao1Desce1
 lw $t1, flagBotao2Desce1
 lw $t2, flagBotao3Desce1
 lw $t3, flagBotao4Desce1
-lw $t4, 0xFFFF0004        # talvez tivesse que fazer um save de letras pra cada desce
-beq $t0, 1, saiApertouForaDaHoraDesce1
-beq $t1, 1, saiApertouForaDaHoraDesce1
-beq $t2, 1, saiApertouForaDaHoraDesce1
-beq $t3, 1, saiApertouForaDaHoraDesce1
-bne $t4, 0, gameOver
-saiApertouForaDaHoraDesce1:
-jr $ra
-# não dá game over quando aperta o botão do desce1 provavelmente porque ele reseta a letra antes de verificar os outros desce
-apertouForaDaHoraDesce2:
+lw $t4, 0xFFFF0004        
+beq $t0, 1, saiApertouForaDaHora
+beq $t1, 1, saiApertouForaDaHora
+beq $t2, 1, saiApertouForaDaHora
+beq $t3, 1, saiApertouForaDaHora
+#desce2
 lw $t0, flagBotao1Desce2
 lw $t1, flagBotao2Desce2
 lw $t2, flagBotao3Desce2
 lw $t3, flagBotao4Desce2
-lw $t4, 0xFFFF0004
-beq $t0, 1, saiApertouForaDaHoraDesce2
-beq $t1, 1, saiApertouForaDaHoraDesce2
-beq $t2, 1, saiApertouForaDaHoraDesce2
-beq $t3, 1, saiApertouForaDaHoraDesce2
-bne $t4, 0, gameOver
-saiApertouForaDaHoraDesce2:
-jr $ra
-
-apertouForaDaHoraDesce3:
+beq $t0, 1, saiApertouForaDaHora
+beq $t1, 1, saiApertouForaDaHora
+beq $t2, 1, saiApertouForaDaHora
+beq $t3, 1, saiApertouForaDaHora
+#desce3
 lw $t0, flagBotao1Desce3
 lw $t1, flagBotao2Desce3
 lw $t2, flagBotao3Desce3
 lw $t3, flagBotao4Desce3
-lw $t4, 0xFFFF0004
-beq $t0, 1, saiApertouForaDaHoraDesce3
-beq $t1, 1, saiApertouForaDaHoraDesce3
-beq $t2, 1, saiApertouForaDaHoraDesce3
-beq $t3, 1, saiApertouForaDaHoraDesce3
-bne $t4, 0, gameOver
-saiApertouForaDaHoraDesce3:
-jr $ra
-
-apertouForaDaHoraDesce4:
+beq $t0, 1, saiApertouForaDaHora
+beq $t1, 1, saiApertouForaDaHora
+beq $t2, 1, saiApertouForaDaHora
+beq $t3, 1, saiApertouForaDaHora
+#desce4
 lw $t0, flagBotao1Desce4
 lw $t1, flagBotao2Desce4
 lw $t2, flagBotao3Desce4
 lw $t3, flagBotao4Desce4
-lw $t4, 0xFFFF0004
-beq $t0, 1, saiApertouForaDaHoraDesce4
-beq $t1, 1, saiApertouForaDaHoraDesce4
-beq $t2, 1, saiApertouForaDaHoraDesce4
-beq $t3, 1, saiApertouForaDaHoraDesce4
+beq $t0, 1, saiApertouForaDaHora
+beq $t1, 1, saiApertouForaDaHora
+beq $t2, 1, saiApertouForaDaHora
+beq $t3, 1, saiApertouForaDaHora
 bne $t4, 0, gameOver
-saiApertouForaDaHoraDesce4:
+saiApertouForaDaHora:
 jr $ra
 
+
 #verifica se passou botoes
+#desce1
 verificaSePassouBotao1Desce1:
 lw $t0, 0x10013D2C
 lw $t1, limao
@@ -2231,7 +2249,7 @@ lw $t1, limao
 beq $t0, $t1, gameOver
 jr $ra
 
-#2
+#desce2
 verificaSePassouBotao1Desce2:
 lw $t0, 0x10013D2C
 lw $t1, ciano
@@ -2256,7 +2274,7 @@ lw $t1, ciano
 beq $t0, $t1, gameOver
 jr $ra
 
-#3
+#desce3
 verificaSePassouBotao1Desce3:
 lw $t0, 0x10013D2C
 lw $t1, roxo
@@ -2281,7 +2299,7 @@ lw $t1, roxo
 beq $t0, $t1, gameOver
 jr $ra
 
-#4
+#desce4
 verificaSePassouBotao1Desce4:
 lw $t0, 0x10013D2C
 lw $t1, magenta
@@ -2315,16 +2333,18 @@ jr $ra
 
 aumentaVelocidade:
 lw $t0, velocidade
-addi $t0, $t0, -1
+addi $t0, $t0, -2
 sw $t0, velocidade
 jr $ra
 
 gameOver:
 addi $sp, $sp, 4
 lw $ra, 0($sp)
-#print voce perdeu
+ori $v0, $zero, 4
+la $a0, fraseGameOver
+syscall
 j exit
-#j desejaReiniciar? se sim, pula pro começo e chama todas as funções do começo do código denovo
+
 
 exit:
 ori $v0, $zero, 10
