@@ -1,4 +1,4 @@
-
+# Configurações do bitmap display: 8, 8, 512, 512
 .data
 pixels:.space 16384 #espaço total dos pixels
 fraseControles: .asciiz " Controles do jogo:  A  D  J  L  (minúsculas)\n Botão 1: A\n Botão 2: D\n Botão 3: J\n Botão 4: L\n"
