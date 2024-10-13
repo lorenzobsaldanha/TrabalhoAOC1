@@ -135,157 +135,192 @@ j desceTeclas
 
 #COMECA AQUI AS ANIMAÇÕES
 desceTeclas: 
-
+jal apertouForaDaHora
 jal desce1
 jal sleep
 
+jal apertouForaDaHora
 jal desce1
 jal sleep
 
+jal apertouForaDaHora
 jal desce1
 jal sleep
 
+jal apertouForaDaHora
 jal desce1
 jal sleep
 
+jal apertouForaDaHora
 jal desce1
 jal sleep
 
+jal apertouForaDaHora
 jal desce1
 jal sleep
 
+jal apertouForaDaHora
 jal desce1
 jal sleep
 
+jal apertouForaDaHora
 jal desce1
 jal sleep
 
+jal apertouForaDaHora
 jal desce1
 jal sleep
 
+jal apertouForaDaHora
 jal desce1
 jal sleep
 
+jal apertouForaDaHora
 jal desce1
 jal sleep
 
+jal apertouForaDaHora
 jal desce1
 jal sleep
 
+jal apertouForaDaHora
 jal desce2
 jal sleep
 
 #desce2
-
+jal apertouForaDaHora
 jal desce1
 jal desce2
 jal sleep
 
+jal apertouForaDaHora
 jal desce1
 jal desce2
 jal sleep
 
+jal apertouForaDaHora
 jal desce1
 jal desce2
 jal sleep
 
+jal apertouForaDaHora
 jal desce1
 jal desce2
 jal sleep
 
+jal apertouForaDaHora
 jal desce1
 jal desce2
 jal sleep
 
+jal apertouForaDaHora
 jal desce1
 jal desce2
 jal sleep
 
+jal apertouForaDaHora
 jal desce1
 jal desce2
 jal sleep
 
+jal apertouForaDaHora
 jal desce1
 jal desce2
 jal sleep
 
+jal apertouForaDaHora
 jal desce1
 jal desce2
 jal sleep
 
+jal apertouForaDaHora
 jal desce1
 jal desce2
 jal sleep
 
+jal apertouForaDaHora
 jal desce1
 jal desce2
 jal sleep
 
-
+jal apertouForaDaHora
 jal desce3
 jal sleep
 
 #desce3
+jal apertouForaDaHora
 jal desce1
 jal desce2
 jal desce3
 jal sleep
 
+jal apertouForaDaHora
 jal desce1
 jal desce2
 jal desce3
 jal sleep
 
+jal apertouForaDaHora
 jal desce1
 jal desce2
 jal desce3
 jal sleep
 
+jal apertouForaDaHora
 jal desce1
 jal desce2
 jal desce3
 jal sleep
 
+jal apertouForaDaHora
 jal desce1
 jal desce2
 jal desce3
 jal sleep
 
+jal apertouForaDaHora
 jal desce1
 jal desce2
 jal desce3
 jal sleep
 
+jal apertouForaDaHora
 jal desce1
 jal desce2
 jal desce3
 jal sleep
 
+jal apertouForaDaHora
 jal desce1
 jal desce2
 jal desce3
 jal sleep
 
+jal apertouForaDaHora
 jal desce1
 jal desce2
 jal desce3
 jal sleep
 
+jal apertouForaDaHora
 jal desce1
 jal desce2
 jal desce3
 jal sleep
 
+jal apertouForaDaHora
 jal desce1
 jal desce2
 jal desce3
 jal sleep
 
+jal apertouForaDaHora
 jal desce1
 jal desce2
 jal desce3
 jal sleep
 
+jal apertouForaDaHora
 jal desce4
 jal sleep
 
