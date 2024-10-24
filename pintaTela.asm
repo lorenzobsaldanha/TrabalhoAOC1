@@ -68,8 +68,8 @@ flagBotao3Desce4: .word 0
 flagBotao4Desce4: .word 0
 
 .text            
+
 jal printaFraseInicio
-jal pintaTela
 
 pintaTelaInicio:
 sw $ra, 0($sp)
@@ -77,7 +77,10 @@ addi $sp, $sp, -4
 jal pintaTela
 addi $sp, $sp, 4
 lw $ra, 0($sp)
-
+jal pintaCimaInicio
+jal pintaBaixo
+jal pintaDireitaInicio
+jal pintaEsquerdaInicio
 sw $ra, 0($sp)
 addi $sp, $sp, -4
 jal pintaMipsTiles
@@ -109,7 +112,8 @@ addi $sp, $sp, -4
 jal escolheJogar
 addi $sp, $sp, 4
 lw $ra, 0($sp)
-  
+
+ #COMECA AS FUNCOES DO JOGO:
 inicio:
 addi $sp, $sp, 4
 lw $ra, 0($sp)
@@ -1587,6 +1591,17 @@ addi $t1, $t1, 1
 bne $t1, 64, loopPintaCima
 jr $ra
 
+pintaCimaInicio:
+lw $t0, laranja # $t0 = laranja
+ori $t1, $zero, 0 # $t1 = contador
+li $s0, 0x10010000
+loopPintaCimaInicio:
+sw $t0, 0($s0)
+addi $s0, $s0, 4
+addi $t1, $t1, 1
+bne $t1, 64, loopPintaCimaInicio
+jr $ra
+
 pintaBaixo:
 ori $t1, $zero, 0
 li $s0, 0x10013F00
@@ -1609,6 +1624,17 @@ addi $t1, $t1, 1
 bne $t1, 54, loopPintaEsquerda
 jr $ra
 
+pintaEsquerdaInicio:
+ori $t1, $zero, 0
+li $s0, 0x10010000
+lw $t0, laranja
+loopPintaEsquerdaInicio:
+sw $t0, 0($s0)
+addi $s0, $s0, 256
+addi $t1, $t1, 1
+bne $t1, 64, loopPintaEsquerdaInicio
+jr $ra
+
 pintaDireita:
 ori $t1, $zero, 0
 li $s0, 0x10010AFC
@@ -1618,6 +1644,17 @@ sw $t0, 0($s0)
 addi $s0, $s0, 256
 addi $t1, $t1, 1
 bne $t1, 54, loopPintaDireita
+jr $ra
+
+pintaDireitaInicio:
+ori $t1, $zero, 0
+li $s0, 0x100100FC
+lw $t0, laranja
+loopPintaDireitaInicio:
+sw $t0, 0($s0)
+addi $s0, $s0, 256
+addi $t1, $t1, 1
+bne $t1, 64, loopPintaDireitaInicio
 jr $ra
 
 pintaBordaPlacarCima:
