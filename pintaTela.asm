@@ -1,7 +1,8 @@
 # Configurações do bitmap display: 8, 8, 512, 512
 .data
 pixels:.space 16384 #espaço total dos pixels
-fraseControles: .asciiz " Controles do jogo:  A  D  J  L  (minúsculas)\n Botão 1: A\n Botão 2: D\n Botão 3: J\n Botão 4: L\n"
+fraseInicio: .asciiz " Boas vindas ao Mips Tiles!\n Escolher opcoes: W  S\n Selecionar: ESPACO\n"
+fraseControles: .asciiz "\n Controles do jogo:  A  D  J  L  (minúsculas)\n Botão 1: A\n Botão 2: D\n Botão 3: J\n Botão 4: L\n"
 fraseGameOver: .asciiz "-------------------- FIM DE JOGO --------------------\n"
 velocidade: .word 150 # tempo de atraso do jogo em milisegundos
 laranja: .word 0x00FFA500
@@ -15,6 +16,7 @@ roxo: .word 0x00AF33FF
 magenta: .word 0x00FF00FF
 branco: .word 0xFFFFFF
 corDoFundo: .word 0x4B4C4E
+flagEscolheInicio: .word 0
 pontuacaoPlayer1: .word 0
 pixel1Desce1: .space 4
 pixel2Desce1: .space 4
@@ -65,8 +67,53 @@ flagBotao2Desce4: .word 0
 flagBotao3Desce4: .word 0
 flagBotao4Desce4: .word 0
 
-.text              
-comeco:
+.text            
+jal printaFraseInicio
+jal pintaTela
+
+pintaTelaInicio:
+sw $ra, 0($sp)
+addi $sp, $sp, -4
+jal pintaTela
+addi $sp, $sp, 4
+lw $ra, 0($sp)
+
+sw $ra, 0($sp)
+addi $sp, $sp, -4
+jal pintaMipsTiles
+addi $sp, $sp, 4
+lw $ra, 0($sp)
+
+sw $ra, 0($sp)
+addi $sp, $sp, -4
+jal pintaBotaoJogar
+addi $sp, $sp, 4
+lw $ra, 0($sp)
+
+sw $ra, 0($sp)
+addi $sp, $sp, -4
+jal pintaBotaoSair
+addi $sp, $sp, 4
+lw $ra, 0($sp)
+
+
+
+sw $ra, 0($sp)
+addi $sp, $sp, -4
+jal selecionaBotaoJogar
+addi $sp, $sp, 4
+lw $ra, 0($sp)
+
+sw $ra, 0($sp)
+addi $sp, $sp, -4
+jal escolheJogar
+addi $sp, $sp, 4
+lw $ra, 0($sp)
+  
+inicio:
+addi $sp, $sp, 4
+lw $ra, 0($sp)
+
 jal printaFraseControles
 jal pintaTela
 jal pintaCima
@@ -599,6 +646,917 @@ j loopDesceTeclas # j loop
 jal exit # não vai chegar nessa linha, mas tá aqui só por precaução
 
 #          TERMINA DESCE TECLAS AQUI, EMBAIXO DISSO SÃO O CORPO DAS FUNÇÕES
+#CORPO DAS FUNCOES DA TELA INICIAL:
+
+pintaMipsTiles:
+lw $t0, branco
+lw $t1, corDoFundo
+#M
+lw $t0, vermelho
+li $s0, 0x10010720
+sw $t0, 0x00000000($s0)
+sw $t0, 0x00000100($s0)
+sw $t0, 0x00000200($s0)
+sw $t0, 0x00000300($s0)
+sw $t0, 0x00000400($s0)
+sw $t0, 0x00000500($s0)
+sw $t0, 0x00000600($s0)
+sw $t0, 0x00000700($s0)
+sw $t0, 0x00000800($s0)
+sw $t0, 0x00000900($s0)
+sw $t0, 0x00000A00($s0)
+
+sw $t0, 0x00000004($s0)
+sw $t0, 0x00000104($s0)
+sw $t0, 0x00000204($s0)
+sw $t0, 0x00000304($s0)
+sw $t0, 0x00000404($s0)
+sw $t0, 0x00000504($s0)
+sw $t0, 0x00000604($s0)
+sw $t0, 0x00000704($s0)
+sw $t0, 0x00000804($s0)
+sw $t0, 0x00000904($s0)
+sw $t0, 0x00000A04($s0)
+
+sw $t0, 0x00000108($s0)
+sw $t0, 0x00000208($s0)
+sw $t0, 0x00000308($s0)
+sw $t0, 0x00000408($s0)
+
+sw $t0, 0x0000030C($s0)
+sw $t0, 0x0000040C($s0)
+sw $t0, 0x0000050C($s0)
+sw $t0, 0x0000060C($s0)
+
+sw $t0, 0x00000510($s0)
+sw $t0, 0x00000610($s0)
+sw $t0, 0x00000710($s0)
+sw $t0, 0x00000810($s0)
+
+sw $t0, 0x00000514($s0)
+sw $t0, 0x00000614($s0)
+sw $t0, 0x00000714($s0)
+sw $t0, 0x00000814($s0)
+
+sw $t0, 0x00000318($s0)
+sw $t0, 0x00000418($s0)
+sw $t0, 0x00000518($s0)
+sw $t0, 0x00000618($s0)
+
+sw $t0, 0x0000011C($s0)
+sw $t0, 0x0000021C($s0)
+sw $t0, 0x0000031C($s0)
+sw $t0, 0x0000041C($s0)
+
+sw $t0, 0x00000020($s0)
+sw $t0, 0x00000120($s0)
+sw $t0, 0x00000220($s0)
+sw $t0, 0x00000320($s0)
+sw $t0, 0x00000420($s0)
+sw $t0, 0x00000520($s0)
+sw $t0, 0x00000620($s0)
+sw $t0, 0x00000720($s0)
+sw $t0, 0x00000820($s0)
+sw $t0, 0x00000920($s0)
+sw $t0, 0x00000A20($s0)
+sw $t0, 0x00000024($s0)
+sw $t0, 0x00000124($s0)
+sw $t0, 0x00000224($s0)
+sw $t0, 0x00000324($s0)
+sw $t0, 0x00000424($s0)
+sw $t0, 0x00000524($s0)
+sw $t0, 0x00000624($s0)
+sw $t0, 0x00000724($s0)
+sw $t0, 0x00000824($s0)
+sw $t0, 0x00000924($s0)
+sw $t0, 0x00000A24($s0)
+
+#I
+lw $t0, amarelo
+li $s0, 0x10010750
+sw $t0, 0x00000000($s0)
+sw $t0, 0x00000004($s0)
+sw $t0, 0x00000008($s0)
+sw $t0, 0x0000000C($s0)
+sw $t0, 0x00000010($s0)
+sw $t0, 0x00000014($s0)
+sw $t0, 0x00000018($s0)
+sw $t0, 0x0000001C($s0)
+sw $t0, 0x00000020($s0)
+sw $t0, 0x00000024($s0)
+sw $t0, 0x00000110($s0)
+sw $t0, 0x00000210($s0)
+sw $t0, 0x00000310($s0)
+sw $t0, 0x00000410($s0)
+sw $t0, 0x00000510($s0)
+sw $t0, 0x00000610($s0)
+sw $t0, 0x00000710($s0)
+sw $t0, 0x00000810($s0)
+sw $t0, 0x00000910($s0)
+sw $t0, 0x00000A10($s0)
+
+sw $t0, 0x00000114($s0)
+sw $t0, 0x00000214($s0)
+sw $t0, 0x00000314($s0)
+sw $t0, 0x00000414($s0)
+sw $t0, 0x00000514($s0)
+sw $t0, 0x00000614($s0)
+sw $t0, 0x00000714($s0)
+sw $t0, 0x00000814($s0)
+sw $t0, 0x00000914($s0)
+sw $t0, 0x00000A14($s0)
+
+sw $t0, 0x00000A00($s0)
+sw $t0, 0x00000A04($s0)
+sw $t0, 0x00000A08($s0)
+sw $t0, 0x00000A0C($s0)
+sw $t0, 0x00000A10($s0)
+sw $t0, 0x00000A14($s0)
+sw $t0, 0x00000A18($s0)
+sw $t0, 0x00000A1C($s0)
+sw $t0, 0x00000A20($s0)
+sw $t0, 0x00000A24($s0)
+
+
+#P
+lw $t0, azul
+li $s0, 0x10010780
+sw $t0, 0x000000000($s0)
+sw $t0, 0x000000100($s0)
+sw $t0, 0x000000200($s0)
+sw $t0, 0x000000300($s0)
+sw $t0, 0x000000400($s0)
+sw $t0, 0x000000500($s0)
+sw $t0, 0x000000600($s0)
+sw $t0, 0x000000700($s0)
+sw $t0, 0x000000800($s0)
+sw $t0, 0x000000900($s0)
+sw $t0, 0x000000A00($s0)
+sw $t0, 0x000000004($s0)
+sw $t0, 0x000000104($s0)
+sw $t0, 0x000000204($s0)
+sw $t0, 0x000000304($s0)
+sw $t0, 0x000000404($s0)
+sw $t0, 0x000000504($s0)
+sw $t0, 0x000000604($s0)
+sw $t0, 0x000000704($s0)
+sw $t0, 0x000000804($s0)
+sw $t0, 0x000000904($s0)
+sw $t0, 0x000000A04($s0)
+
+sw $t0, 0x000000008($s0)
+sw $t0, 0x00000000C($s0)
+sw $t0, 0x000000010($s0)
+sw $t0, 0x000000014($s0)
+sw $t0, 0x000000018($s0)
+sw $t0, 0x000000118($s0)
+sw $t0, 0x00000011C($s0)
+sw $t0, 0x00000021C($s0)
+sw $t0, 0x000000220($s0)
+sw $t0, 0x00000031C($s0)
+sw $t0, 0x000000320($s0)
+sw $t0, 0x000000418($s0)
+sw $t0, 0x00000041C($s0)
+sw $t0, 0x000000508($s0)
+sw $t0, 0x00000050C($s0)
+sw $t0, 0x000000510($s0)
+sw $t0, 0x000000514($s0)
+sw $t0, 0x000000518($s0)
+
+#S
+lw $t0, verde
+li $s0, 0x100107AC
+sw $t0, 0x000000008($s0)
+sw $t0, 0x00000000C($s0)
+sw $t0, 0x000000010($s0)
+sw $t0, 0x000000014($s0)
+sw $t0, 0x000000018($s0)
+sw $t0, 0x00000001C($s0)
+sw $t0, 0x000000104($s0)
+sw $t0, 0x000000108($s0)
+sw $t0, 0x00000011C($s0)
+sw $t0, 0x000000120($s0)
+sw $t0, 0x000000220($s0)
+sw $t0, 0x000000224($s0)
+sw $t0, 0x000000200($s0)
+sw $t0, 0x000000204($s0)
+sw $t0, 0x000000300($s0)
+sw $t0, 0x000000304($s0)
+sw $t0, 0x000000404($s0)
+sw $t0, 0x000000408($s0)
+sw $t0, 0x000000508($s0)
+sw $t0, 0x00000050C($s0)
+sw $t0, 0x000000510($s0)
+sw $t0, 0x000000514($s0)
+sw $t0, 0x000000518($s0)
+sw $t0, 0x00000051C($s0)
+sw $t0, 0x00000061C($s0)
+sw $t0, 0x000000620($s0)
+sw $t0, 0x000000720($s0)
+sw $t0, 0x000000724($s0)
+sw $t0, 0x000000820($s0)
+sw $t0, 0x000000824($s0)
+sw $t0, 0x000000920($s0)
+sw $t0, 0x00000091C($s0)
+sw $t0, 0x000000904($s0)
+sw $t0, 0x000000908($s0)
+sw $t0, 0x000000800($s0)
+sw $t0, 0x000000804($s0)
+
+sw $t0, 0x000000A08($s0)
+sw $t0, 0x000000A0C($s0)
+sw $t0, 0x000000A10($s0)
+sw $t0, 0x000000A14($s0)
+sw $t0, 0x000000A18($s0)
+sw $t0, 0x000000A1C($s0)
+
+#T
+lw $t0, limao
+li $s0, 0x1001160C
+sw $t0, 0x00000000($s0)
+sw $t0, 0x00000004($s0)
+sw $t0, 0x00000008($s0)
+sw $t0, 0x0000000C($s0)
+sw $t0, 0x00000010($s0)
+sw $t0, 0x00000014($s0)
+sw $t0, 0x00000018($s0)
+sw $t0, 0x0000001C($s0)
+sw $t0, 0x00000020($s0)
+sw $t0, 0x00000024($s0)
+sw $t0, 0x00000110($s0)
+sw $t0, 0x00000210($s0)
+sw $t0, 0x00000310($s0)
+sw $t0, 0x00000410($s0)
+sw $t0, 0x00000510($s0)
+sw $t0, 0x00000610($s0)
+sw $t0, 0x00000710($s0)
+sw $t0, 0x00000810($s0)
+sw $t0, 0x00000910($s0)
+sw $t0, 0x00000A10($s0)
+
+sw $t0, 0x00000114($s0)
+sw $t0, 0x00000214($s0)
+sw $t0, 0x00000314($s0)
+sw $t0, 0x00000414($s0)
+sw $t0, 0x00000514($s0)
+sw $t0, 0x00000614($s0)
+sw $t0, 0x00000714($s0)
+sw $t0, 0x00000814($s0)
+sw $t0, 0x00000914($s0)
+sw $t0, 0x00000A14($s0)
+
+#I
+lw $t0, ciano
+li $s0, 0x1001163C
+sw $t0, 0x00000000($s0)
+sw $t0, 0x00000004($s0)
+sw $t0, 0x00000008($s0)
+sw $t0, 0x0000000C($s0)
+sw $t0, 0x00000010($s0)
+sw $t0, 0x00000014($s0)
+sw $t0, 0x00000018($s0)
+sw $t0, 0x0000001C($s0)
+sw $t0, 0x00000020($s0)
+sw $t0, 0x00000024($s0)
+sw $t0, 0x00000110($s0)
+sw $t0, 0x00000210($s0)
+sw $t0, 0x00000310($s0)
+sw $t0, 0x00000410($s0)
+sw $t0, 0x00000510($s0)
+sw $t0, 0x00000610($s0)
+sw $t0, 0x00000710($s0)
+sw $t0, 0x00000810($s0)
+sw $t0, 0x00000910($s0)
+sw $t0, 0x00000A10($s0)
+
+sw $t0, 0x00000114($s0)
+sw $t0, 0x00000214($s0)
+sw $t0, 0x00000314($s0)
+sw $t0, 0x00000414($s0)
+sw $t0, 0x00000514($s0)
+sw $t0, 0x00000614($s0)
+sw $t0, 0x00000714($s0)
+sw $t0, 0x00000814($s0)
+sw $t0, 0x00000914($s0)
+sw $t0, 0x00000A14($s0)
+
+sw $t0, 0x00000A00($s0)
+sw $t0, 0x00000A04($s0)
+sw $t0, 0x00000A08($s0)
+sw $t0, 0x00000A0C($s0)
+sw $t0, 0x00000A10($s0)
+sw $t0, 0x00000A14($s0)
+sw $t0, 0x00000A18($s0)
+sw $t0, 0x00000A1C($s0)
+sw $t0, 0x00000A20($s0)
+sw $t0, 0x00000A24($s0)
+
+#L
+lw $t0, roxo
+li $s0, 0x1001166C
+sw $t0, 0x00000000($s0)
+sw $t0, 0x00000100($s0)
+sw $t0, 0x00000200($s0)
+sw $t0, 0x00000300($s0)
+sw $t0, 0x00000400($s0)
+sw $t0, 0x00000500($s0)
+sw $t0, 0x00000600($s0)
+sw $t0, 0x00000700($s0)
+sw $t0, 0x00000800($s0)
+sw $t0, 0x00000900($s0)
+sw $t0, 0x00000A00($s0)
+
+sw $t0, 0x00000004($s0)
+sw $t0, 0x00000104($s0)
+sw $t0, 0x00000204($s0)
+sw $t0, 0x00000304($s0)
+sw $t0, 0x00000404($s0)
+sw $t0, 0x00000504($s0)
+sw $t0, 0x00000604($s0)
+sw $t0, 0x00000704($s0)
+sw $t0, 0x00000804($s0)
+sw $t0, 0x00000904($s0)
+sw $t0, 0x00000A04($s0)
+
+sw $t0, 0x00000A08($s0)
+sw $t0, 0x00000A0C($s0)
+sw $t0, 0x00000A10($s0)
+sw $t0, 0x00000A14($s0)
+sw $t0, 0x00000A18($s0)
+sw $t0, 0x00000A1C($s0)
+sw $t0, 0x00000A20($s0)
+sw $t0, 0x00000A24($s0) 
+
+#E
+lw $t0, magenta
+li $s0, 0x1001169C
+sw $t0, 0x00000000($s0)
+sw $t0, 0x00000100($s0)
+sw $t0, 0x00000200($s0)
+sw $t0, 0x00000300($s0)
+sw $t0, 0x00000400($s0)
+sw $t0, 0x00000500($s0)
+sw $t0, 0x00000600($s0)
+sw $t0, 0x00000700($s0)
+sw $t0, 0x00000800($s0)
+sw $t0, 0x00000900($s0)
+sw $t0, 0x00000A00($s0)
+
+sw $t0, 0x00000004($s0)
+sw $t0, 0x00000104($s0)
+sw $t0, 0x00000204($s0)
+sw $t0, 0x00000304($s0)
+sw $t0, 0x00000404($s0)
+sw $t0, 0x00000504($s0)
+sw $t0, 0x00000604($s0)
+sw $t0, 0x00000704($s0)
+sw $t0, 0x00000804($s0)
+sw $t0, 0x00000904($s0)
+sw $t0, 0x00000A04($s0)
+
+sw $t0, 0x00000008($s0)
+sw $t0, 0x0000000C($s0)
+sw $t0, 0x00000010($s0)
+sw $t0, 0x00000014($s0)
+sw $t0, 0x00000018($s0)
+sw $t0, 0x0000001C($s0)
+sw $t0, 0x00000020($s0)
+sw $t0, 0x00000024($s0)
+
+sw $t0, 0x00000508($s0)
+sw $t0, 0x0000050C($s0)
+sw $t0, 0x00000510($s0)
+sw $t0, 0x00000514($s0)
+sw $t0, 0x00000518($s0)
+sw $t0, 0x0000051C($s0)
+
+sw $t0, 0x00000A08($s0)
+sw $t0, 0x00000A0C($s0)
+sw $t0, 0x00000A10($s0)
+sw $t0, 0x00000A14($s0)
+sw $t0, 0x00000A18($s0)
+sw $t0, 0x00000A1C($s0)
+sw $t0, 0x00000A20($s0)
+sw $t0, 0x00000A24($s0) 
+
+#S
+lw $t0, laranja
+li $s0, 0x100116CC
+sw $t0, 0x000000008($s0)
+sw $t0, 0x00000000C($s0)
+sw $t0, 0x000000010($s0)
+sw $t0, 0x000000014($s0)
+sw $t0, 0x000000018($s0)
+sw $t0, 0x00000001C($s0)
+sw $t0, 0x000000104($s0)
+sw $t0, 0x000000108($s0)
+sw $t0, 0x00000011C($s0)
+sw $t0, 0x000000120($s0)
+sw $t0, 0x000000220($s0)
+sw $t0, 0x000000224($s0)
+sw $t0, 0x000000200($s0)
+sw $t0, 0x000000204($s0)
+sw $t0, 0x000000300($s0)
+sw $t0, 0x000000304($s0)
+sw $t0, 0x000000404($s0)
+sw $t0, 0x000000408($s0)
+sw $t0, 0x000000508($s0)
+sw $t0, 0x00000050C($s0)
+sw $t0, 0x000000510($s0)
+sw $t0, 0x000000514($s0)
+sw $t0, 0x000000518($s0)
+sw $t0, 0x00000051C($s0)
+sw $t0, 0x00000061C($s0)
+sw $t0, 0x000000620($s0)
+sw $t0, 0x000000720($s0)
+sw $t0, 0x000000724($s0)
+sw $t0, 0x000000820($s0)
+sw $t0, 0x000000824($s0)
+sw $t0, 0x000000920($s0)
+sw $t0, 0x00000091C($s0)
+sw $t0, 0x000000904($s0)
+sw $t0, 0x000000908($s0)
+sw $t0, 0x000000800($s0)
+sw $t0, 0x000000804($s0)
+
+sw $t0, 0x000000A08($s0)
+sw $t0, 0x000000A0C($s0)
+sw $t0, 0x000000A10($s0)
+sw $t0, 0x000000A14($s0)
+sw $t0, 0x000000A18($s0)
+sw $t0, 0x000000A1C($s0)
+jr $ra
+
+pintaBotaoJogar:
+#borda do botao:
+lw $t0, branco
+li $s0, 0x10012850
+#sw $t0, 0x00000000($s0)
+sw $t0, 0x00000004($s0)
+sw $t0, 0x00000008($s0)
+sw $t0, 0x0000000C($s0)
+sw $t0, 0x00000010($s0)
+sw $t0, 0x00000014($s0)
+sw $t0, 0x00000018($s0)
+sw $t0, 0x0000001C($s0)
+sw $t0, 0x00000020($s0)
+sw $t0, 0x00000024($s0)
+sw $t0, 0x00000028($s0)
+sw $t0, 0x0000002C($s0)
+sw $t0, 0x00000030($s0)
+sw $t0, 0x00000034($s0)
+sw $t0, 0x00000038($s0)
+sw $t0, 0x0000003C($s0)
+sw $t0, 0x00000040($s0)
+sw $t0, 0x00000044($s0)
+sw $t0, 0x00000048($s0)
+sw $t0, 0x0000004C($s0)
+sw $t0, 0x00000050($s0)
+sw $t0, 0x00000054($s0)
+
+sw $t0, 0x00000100($s0)
+sw $t0, 0x00000104($s0)
+sw $t0, 0x00000200($s0)
+sw $t0, 0x00000300($s0)
+sw $t0, 0x00000400($s0)
+sw $t0, 0x00000500($s0)
+sw $t0, 0x00000600($s0)
+sw $t0, 0x00000700($s0)
+sw $t0, 0x00000704($s0)
+
+sw $t0, 0x00000154($s0)
+sw $t0, 0x00000158($s0)
+sw $t0, 0x00000258($s0)
+sw $t0, 0x00000358($s0)
+sw $t0, 0x00000458($s0)
+sw $t0, 0x00000558($s0)
+sw $t0, 0x00000658($s0)
+sw $t0, 0x00000758($s0)
+
+li $s0, 0x10013050
+#sw $t0, 0x00000000($s0)
+sw $t0, 0x00000004($s0)
+sw $t0, 0x00000008($s0)
+sw $t0, 0x0000000C($s0)
+sw $t0, 0x00000010($s0)
+sw $t0, 0x00000014($s0)
+sw $t0, 0x00000018($s0)
+sw $t0, 0x0000001C($s0)
+sw $t0, 0x00000020($s0)
+sw $t0, 0x00000024($s0)
+sw $t0, 0x00000028($s0)
+sw $t0, 0x0000002C($s0)
+sw $t0, 0x00000030($s0)
+sw $t0, 0x00000034($s0)
+sw $t0, 0x00000038($s0)
+sw $t0, 0x0000003C($s0)
+sw $t0, 0x00000040($s0)
+sw $t0, 0x00000044($s0)
+sw $t0, 0x00000048($s0)
+sw $t0, 0x0000004C($s0)
+sw $t0, 0x00000050($s0)
+sw $t0, 0x00000054($s0)
+
+li $s0, 0x10012FA4
+sw $t0, 0x00000000($s0)
+#J
+li $s0, 0x10012A58
+sw $t0, 0x00000008($s0)
+sw $t0, 0x00000108($s0)
+sw $t0, 0x00000208($s0)
+sw $t0, 0x00000308($s0)
+sw $t0, 0x00000408($s0)
+sw $t0, 0x00000400($s0)
+sw $t0, 0x00000404($s0)
+#O
+li $s0, 0x10012A68
+sw $t0, 0x00000000($s0)
+sw $t0, 0x00000004($s0)
+sw $t0, 0x00000008($s0)
+sw $t0, 0x00000100($s0)
+sw $t0, 0x00000200($s0)
+sw $t0, 0x00000300($s0)
+sw $t0, 0x00000400($s0)
+sw $t0, 0x00000404($s0)
+sw $t0, 0x00000408($s0)
+sw $t0, 0x00000108($s0)
+sw $t0, 0x00000208($s0)
+sw $t0, 0x00000308($s0)
+#G
+li $s0, 0x10012A78
+sw $t0, 0x00000000($s0)
+sw $t0, 0x00000004($s0)
+sw $t0, 0x00000008($s0)
+sw $t0, 0x00000100($s0)
+sw $t0, 0x00000200($s0)
+sw $t0, 0x00000300($s0)
+sw $t0, 0x00000400($s0)
+sw $t0, 0x00000404($s0)
+sw $t0, 0x00000408($s0)
+sw $t0, 0x00000208($s0)
+sw $t0, 0x00000308($s0)
+
+#A
+li $s0, 0x10012A88
+sw $t0, 0x00000000($s0)
+sw $t0, 0x00000004($s0)
+sw $t0, 0x00000008($s0)
+sw $t0, 0x00000100($s0)
+sw $t0, 0x00000200($s0)
+sw $t0, 0x00000204($s0)
+sw $t0, 0x00000300($s0)
+sw $t0, 0x00000400($s0)
+sw $t0, 0x00000408($s0)
+sw $t0, 0x00000108($s0)
+sw $t0, 0x00000208($s0)
+sw $t0, 0x00000308($s0)
+
+#R
+li $s0, 0x10012A98
+sw $t0, 0x00000000($s0)
+sw $t0, 0x00000004($s0)
+sw $t0, 0x00000008($s0)
+sw $t0, 0x00000100($s0)
+sw $t0, 0x00000200($s0)
+sw $t0, 0x00000204($s0)
+sw $t0, 0x00000300($s0)
+sw $t0, 0x00000400($s0)
+sw $t0, 0x00000408($s0)
+sw $t0, 0x00000108($s0)
+sw $t0, 0x00000308($s0)
+
+jr $ra
+
+pintaBotaoSair:
+#borda do botao:
+lw $t0, branco
+li $s0, 0x10013450
+#sw $t0, 0x00000000($s0)
+sw $t0, 0x00000004($s0)
+sw $t0, 0x00000008($s0)
+sw $t0, 0x0000000C($s0)
+sw $t0, 0x00000010($s0)
+sw $t0, 0x00000014($s0)
+sw $t0, 0x00000018($s0)
+sw $t0, 0x0000001C($s0)
+sw $t0, 0x00000020($s0)
+sw $t0, 0x00000024($s0)
+sw $t0, 0x00000028($s0)
+sw $t0, 0x0000002C($s0)
+sw $t0, 0x00000030($s0)
+sw $t0, 0x00000034($s0)
+sw $t0, 0x00000038($s0)
+sw $t0, 0x0000003C($s0)
+sw $t0, 0x00000040($s0)
+sw $t0, 0x00000044($s0)
+sw $t0, 0x00000048($s0)
+sw $t0, 0x0000004C($s0)
+sw $t0, 0x00000050($s0)
+sw $t0, 0x00000054($s0)
+
+sw $t0, 0x00000100($s0)
+sw $t0, 0x00000104($s0)
+sw $t0, 0x00000200($s0)
+sw $t0, 0x00000300($s0)
+sw $t0, 0x00000400($s0)
+sw $t0, 0x00000500($s0)
+sw $t0, 0x00000600($s0)
+sw $t0, 0x00000700($s0)
+sw $t0, 0x00000704($s0)
+
+sw $t0, 0x00000154($s0)
+sw $t0, 0x00000158($s0)
+sw $t0, 0x00000258($s0)
+sw $t0, 0x00000358($s0)
+sw $t0, 0x00000458($s0)
+sw $t0, 0x00000558($s0)
+sw $t0, 0x00000658($s0)
+sw $t0, 0x00000758($s0)
+sw $t0, 0x00000754($s0)
+
+li $s0, 0x10013C50
+#sw $t0, 0x00000000($s0)
+sw $t0, 0x00000004($s0)
+sw $t0, 0x00000008($s0)
+sw $t0, 0x0000000C($s0)
+sw $t0, 0x00000010($s0)
+sw $t0, 0x00000014($s0)
+sw $t0, 0x00000018($s0)
+sw $t0, 0x0000001C($s0)
+sw $t0, 0x00000020($s0)
+sw $t0, 0x00000024($s0)
+sw $t0, 0x00000028($s0)
+sw $t0, 0x0000002C($s0)
+sw $t0, 0x00000030($s0)
+sw $t0, 0x00000034($s0)
+sw $t0, 0x00000038($s0)
+sw $t0, 0x0000003C($s0)
+sw $t0, 0x00000040($s0)
+sw $t0, 0x00000044($s0)
+sw $t0, 0x00000048($s0)
+sw $t0, 0x0000004C($s0)
+sw $t0, 0x00000050($s0)
+sw $t0, 0x00000054($s0)
+
+#S
+li $s0, 0x10013660
+sw $t0, 0x00000000($s0)
+sw $t0, 0x00000004($s0)
+sw $t0, 0x00000008($s0)
+sw $t0, 0x00000100($s0)
+sw $t0, 0x00000200($s0)
+sw $t0, 0x00000204($s0)
+sw $t0, 0x00000400($s0)
+sw $t0, 0x00000404($s0)
+sw $t0, 0x00000408($s0)
+sw $t0, 0x00000208($s0)
+sw $t0, 0x00000308($s0)
+#A
+li $s0, 0x10013670
+sw $t0, 0x00000000($s0)
+sw $t0, 0x00000004($s0)
+sw $t0, 0x00000008($s0)
+sw $t0, 0x00000100($s0)
+sw $t0, 0x00000200($s0)
+sw $t0, 0x00000204($s0)
+sw $t0, 0x00000300($s0)
+sw $t0, 0x00000400($s0)
+sw $t0, 0x00000408($s0)
+sw $t0, 0x00000108($s0)
+sw $t0, 0x00000208($s0)
+sw $t0, 0x00000308($s0)
+#I
+li $s0, 0x10013680
+sw $t0, 0x00000000($s0)
+sw $t0, 0x00000004($s0)
+sw $t0, 0x00000008($s0)
+sw $t0, 0x00000104($s0)
+sw $t0, 0x00000204($s0)
+sw $t0, 0x00000304($s0)
+sw $t0, 0x00000400($s0)
+sw $t0, 0x00000404($s0)
+sw $t0, 0x00000408($s0)
+
+#R
+li $s0, 0x10013690
+sw $t0, 0x00000000($s0)
+sw $t0, 0x00000004($s0)
+sw $t0, 0x00000008($s0)
+sw $t0, 0x00000100($s0)
+sw $t0, 0x00000200($s0)
+sw $t0, 0x00000204($s0)
+sw $t0, 0x00000300($s0)
+sw $t0, 0x00000400($s0)
+sw $t0, 0x00000408($s0)
+sw $t0, 0x00000108($s0)
+sw $t0, 0x00000308($s0)
+
+jr $ra
+
+selecionaBotaoJogar:
+lw $t0, laranja
+li $s0, 0x10012850
+#sw $t0, 0x00000000($s0)
+sw $t0, 0x00000004($s0)
+sw $t0, 0x00000008($s0)
+sw $t0, 0x0000000C($s0)
+sw $t0, 0x00000010($s0)
+sw $t0, 0x00000014($s0)
+sw $t0, 0x00000018($s0)
+sw $t0, 0x0000001C($s0)
+sw $t0, 0x00000020($s0)
+sw $t0, 0x00000024($s0)
+sw $t0, 0x00000028($s0)
+sw $t0, 0x0000002C($s0)
+sw $t0, 0x00000030($s0)
+sw $t0, 0x00000034($s0)
+sw $t0, 0x00000038($s0)
+sw $t0, 0x0000003C($s0)
+sw $t0, 0x00000040($s0)
+sw $t0, 0x00000044($s0)
+sw $t0, 0x00000048($s0)
+sw $t0, 0x0000004C($s0)
+sw $t0, 0x00000050($s0)
+sw $t0, 0x00000054($s0)
+
+sw $t0, 0x00000100($s0)
+sw $t0, 0x00000104($s0)
+sw $t0, 0x00000200($s0)
+sw $t0, 0x00000300($s0)
+sw $t0, 0x00000400($s0)
+sw $t0, 0x00000500($s0)
+sw $t0, 0x00000600($s0)
+sw $t0, 0x00000700($s0)
+sw $t0, 0x00000704($s0)
+
+sw $t0, 0x00000154($s0)
+sw $t0, 0x00000158($s0)
+sw $t0, 0x00000258($s0)
+sw $t0, 0x00000358($s0)
+sw $t0, 0x00000458($s0)
+sw $t0, 0x00000558($s0)
+sw $t0, 0x00000658($s0)
+sw $t0, 0x00000754($s0)
+sw $t0, 0x00000758($s0)
+
+li $s0, 0x10013050
+#sw $t0, 0x00000000($s0)
+sw $t0, 0x00000004($s0)
+sw $t0, 0x00000008($s0)
+sw $t0, 0x0000000C($s0)
+sw $t0, 0x00000010($s0)
+sw $t0, 0x00000014($s0)
+sw $t0, 0x00000018($s0)
+sw $t0, 0x0000001C($s0)
+sw $t0, 0x00000020($s0)
+sw $t0, 0x00000024($s0)
+sw $t0, 0x00000028($s0)
+sw $t0, 0x0000002C($s0)
+sw $t0, 0x00000030($s0)
+sw $t0, 0x00000034($s0)
+sw $t0, 0x00000038($s0)
+sw $t0, 0x0000003C($s0)
+sw $t0, 0x00000040($s0)
+sw $t0, 0x00000044($s0)
+sw $t0, 0x00000048($s0)
+sw $t0, 0x0000004C($s0)
+sw $t0, 0x00000050($s0)
+sw $t0, 0x00000054($s0)
+jr $ra
+
+selecionaBotaoSair:
+lw $t0, laranja
+li $s0, 0x10013450
+#sw $t0, 0x00000000($s0)
+sw $t0, 0x00000004($s0)
+sw $t0, 0x00000008($s0)
+sw $t0, 0x0000000C($s0)
+sw $t0, 0x00000010($s0)
+sw $t0, 0x00000014($s0)
+sw $t0, 0x00000018($s0)
+sw $t0, 0x0000001C($s0)
+sw $t0, 0x00000020($s0)
+sw $t0, 0x00000024($s0)
+sw $t0, 0x00000028($s0)
+sw $t0, 0x0000002C($s0)
+sw $t0, 0x00000030($s0)
+sw $t0, 0x00000034($s0)
+sw $t0, 0x00000038($s0)
+sw $t0, 0x0000003C($s0)
+sw $t0, 0x00000040($s0)
+sw $t0, 0x00000044($s0)
+sw $t0, 0x00000048($s0)
+sw $t0, 0x0000004C($s0)
+sw $t0, 0x00000050($s0)
+sw $t0, 0x00000054($s0)
+
+sw $t0, 0x00000100($s0)
+sw $t0, 0x00000104($s0)
+sw $t0, 0x00000200($s0)
+sw $t0, 0x00000300($s0)
+sw $t0, 0x00000400($s0)
+sw $t0, 0x00000500($s0)
+sw $t0, 0x00000600($s0)
+sw $t0, 0x00000700($s0)
+sw $t0, 0x00000704($s0)
+
+sw $t0, 0x00000154($s0)
+sw $t0, 0x00000158($s0)
+sw $t0, 0x00000258($s0)
+sw $t0, 0x00000358($s0)
+sw $t0, 0x00000458($s0)
+sw $t0, 0x00000558($s0)
+sw $t0, 0x00000658($s0)
+sw $t0, 0x00000758($s0)
+sw $t0, 0x00000754($s0)
+
+li $s0, 0x10013C50
+#sw $t0, 0x00000000($s0)
+sw $t0, 0x00000004($s0)
+sw $t0, 0x00000008($s0)
+sw $t0, 0x0000000C($s0)
+sw $t0, 0x00000010($s0)
+sw $t0, 0x00000014($s0)
+sw $t0, 0x00000018($s0)
+sw $t0, 0x0000001C($s0)
+sw $t0, 0x00000020($s0)
+sw $t0, 0x00000024($s0)
+sw $t0, 0x00000028($s0)
+sw $t0, 0x0000002C($s0)
+sw $t0, 0x00000030($s0)
+sw $t0, 0x00000034($s0)
+sw $t0, 0x00000038($s0)
+sw $t0, 0x0000003C($s0)
+sw $t0, 0x00000040($s0)
+sw $t0, 0x00000044($s0)
+sw $t0, 0x00000048($s0)
+sw $t0, 0x0000004C($s0)
+sw $t0, 0x00000050($s0)
+sw $t0, 0x00000054($s0)
+jr $ra
+
+escolheJogar:
+ori $t1, $zero, 0
+sw $t1, 0xFFFF0004
+ori $t1, $zero, 0
+sw $t1, flagEscolheInicio
+sw $ra, 0($sp)
+addi $sp, $sp, -4
+jal selecionaBotaoJogar
+addi $sp, $sp, 4
+lw $ra, 0($sp)
+
+sw $ra, 0($sp)
+addi $sp, $sp, -4
+jal pintaBotaoSair
+addi $sp, $sp, 4
+lw $ra, 0($sp)
+
+lw $t1, 0xFFFF0004
+beq $t1, 119, escolheSair
+beq $t1, 115, escolheSair
+beq $t1, 32, verificaEscolhaInicio
+j escolheJogar
+
+escolheSair:
+ori $t1, $zero, 0
+sw $t1, 0xFFFF0004
+ori $t1, $zero, 1
+sw $t1, flagEscolheInicio
+sw $ra, 0($sp)
+addi $sp, $sp, -4
+jal selecionaBotaoSair
+addi $sp, $sp, 4
+lw $ra, 0($sp)
+
+sw $ra, 0($sp)
+addi $sp, $sp, -4
+jal pintaBotaoJogar
+addi $sp, $sp, 4
+lw $ra, 0($sp)
+
+lw $t1, 0xFFFF0004
+beq $t1, 119, escolheJogar
+beq $t1, 115, escolheJogar
+beq $t1, 32, verificaEscolhaInicio
+j escolheSair
+
+verificaEscolhaInicio:
+ori $t1, $zero, 0
+sw $t1, 0xFFFF0004
+lw $t1, flagEscolheInicio
+beq $t1, 0, inicio
+beq $t1, 1, exit
+
+
+printaFraseInicio:
+la $a0, fraseInicio
+ori $v0, $zero, 4
+syscall
+jr $ra
+ #CORPO DAS FUNCOES DO JOGO:
+
+
 
 
 printaFraseControles:
